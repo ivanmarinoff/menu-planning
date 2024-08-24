@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Weekly Calendar</title>
+    <style>
+        .calendar {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        .day {
+            padding: 20px;
+            border: 1px solid #ccc;
+            text-align: center;
+            width: 100px;
+            cursor: pointer;
+            background-color: #f8f9fa;
+        }
+        .day:hover {
+            background-color: #e9ecef;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Weekly Calendar</h1>
+
+    <div class="calendar">
+        {% for day in days %}
+            <a class="day" href="{{ day.get_absolute_url }}">{{ day.name }}</a>
+        {% endfor %}
+    </div>
+
+</body>
+{#<a href="{% url 'menu' pk=day.pk %}">{{ day.name }} </a>#}
+</html>
