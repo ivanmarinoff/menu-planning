@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping List for {{ shopping_list.day.name }} (Week {{ shopping_list.week }})</title>
+</head>
+<body>
+    <h1>Shopping List for {{ shopping_list.day.name }} (Week {{ shopping_list.week }})</h1>
+
+    <ul>
+        {% for item in shopping_list.items.all %}
+            <li>
+                {{ item.product.name }}: {{ item.quantity }} {{ item.product.unit }}
+                (Available: {{ item.product.available_quantity }})
+            </li>
+        {% empty %}
+            <li>No items in the shopping list.</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'home' %}">Back to Weekly Calendar</a>
+</body>
+</html>

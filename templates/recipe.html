@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipes for {{ category.name }}</title>
+</head>
+<body>
+    <h1>Recipes for {{ category.name }}</h1>
+
+    <ul>
+        {% for recipe in recipes %}
+            <li>
+                <strong>{{ recipe.name }}</strong>:
+                {{ recipe.description }}<br>
+                <a href="{% url 'recipe_detail' recipe.id %}">View Recipe</a>
+            </li>
+        {% empty %}
+            <li>No recipes available for this category.</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'category' category.dish.id %}">Back to Categories</a>
+</body>
+</html>

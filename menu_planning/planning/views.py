@@ -1,4 +1,5 @@
-from django.views.generic import ListView, DetailView
+from django.urls import reverse
+from django.views.generic import ListView, DetailView, CreateView
 from .models import Day, Meal, Dish, Category, ShoppingList
 import logging
 
@@ -18,6 +19,26 @@ class MenuView(DetailView):
         context = super().get_context_data(**kwargs)
         context['meals'] = self.object.meals.all()
         return context
+
+
+class CreateMealView(CreateView):
+    model = Meal
+    template_name = 'create_meal.html'
+    fields = ['name']
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['day'] = Day.objects.get(pk=self.kwargs['pk'])
+        return context
+
+    def form_valid(self, form):
+        day = Day.objects.get(pk=self.kwargs['pk'])
+        print(f"Creating meal for day: {day}")  # Debugging line
+        form.instance.day = Day.objects.get(pk=self.kwargs['pk'])
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('menu', args=[self.kwargs['pk']])
 
 
 class DishesView(DetailView):

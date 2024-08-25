@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dishes for {{ meal.name }}</title>
+</head>
+<body>
+    <h1>Dishes for {{ meal.name }}</h1>
+
+    <ul>
+        {% for dish in dishes %}
+            <li>
+                <a href="{% url 'category' dish.id %}">{{ dish.name }}</a>
+            </li>
+        {% empty %}
+            <li>No dishes available for this meal.</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'menu' meal.day.id %}">Back to Menu</a>
+</body>
+</html>
