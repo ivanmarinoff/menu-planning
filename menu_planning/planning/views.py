@@ -60,7 +60,7 @@ class DishesView(DetailView):
             dish = form.save(commit=False)
             dish.meal = self.get_object()  # Associate the dish with the meal
             dish.save()
-            return redirect(reverse('dishes', kwargs={'meal_id': self.get_object().id}))
+            return redirect(reverse('dishes', kwargs={'pk': self.get_object().id}))
         return self.render_to_response(self.get_context_data(form=form))
 
 
