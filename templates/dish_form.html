@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if form.instance.pk %}Edit{% else %}Add{% endif %} Dish</title>
+</head>
+<body>
+    <h1>{% if form.instance.pk %}Edit{% else %}Add{% endif %} Dish</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+
+    <a href="{% if form.instance.pk %}{% url 'dishes' form.instance.meal.id %}{% else %}{% url 'dishes' meal.id %}{% endif %}">Cancel</a>
+</body>
+</html>

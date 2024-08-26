@@ -1,6 +1,8 @@
+from django.shortcuts import redirect
 from django.urls import reverse
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from .models import Day, Meal, Dish, Category, ShoppingList
+from .forms import DishForm
 import logging
 
 
@@ -49,7 +51,42 @@ class DishesView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['dishes'] = self.object.dishes.all()
+        context['form'] = DishForm()  # Add an empty form to the context
         return context
+
+    def post(self, request, *args, **kwargs):
+        form = DishForm(request.POST)
+        if form.is_valid():
+            dish = form.save(commit=False)
+            dish.meal = self.get_object()  # Associate the dish with the meal
+            dish.save()
+            return redirect(reverse('dishes', kwargs={'meal_id': self.get_object().id}))
+        return self.render_to_response(self.get_context_data(form=form))
+
+
+class DishCreateView(CreateView):
+    model = Dish
+    template_name = 'dish_form.html'
+    fields = ['name', 'description']  # Add any other fields you have in your Dish model
+
+    def form_valid(self, form):
+        meal_id = self.kwargs.get('meal_id')
+        form.instance.meal = Meal.objects.get(pk=meal_id)
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        meal_id = self.kwargs.get('meal_id')
+        return reverse('dishes', args=[meal_id])
+
+
+class DishUpdateView(UpdateView):
+    model = Dish
+    template_name = 'dish_form.html'
+    fields = ['name', 'description']
+
+    def get_success_url(self):
+        return reverse('dishes', args=[self.object.meal.id])
+
 
 
 class CategoryView(DetailView):

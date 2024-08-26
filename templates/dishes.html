@@ -8,10 +8,18 @@
 <body>
     <h1>Dishes for {{ meal.name }}</h1>
 
+    <!-- Display the form for adding a new dish -->
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Add New Dish</button>
+    </form>
+
     <ul>
         {% for dish in dishes %}
             <li>
-                <a href="{% url 'category' dish.id %}">{{ dish.name }}</a>
+                <a href="{% url 'edit_dish' dish.id %}">{{ dish.name }}</a> -
+                <a href="{% url 'category' dish.id %}">View Categories</a>
             </li>
         {% empty %}
             <li>No dishes available for this meal.</li>
