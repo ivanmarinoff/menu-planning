@@ -18,6 +18,12 @@
         {% endfor %}
     </ul>
 
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Add Category</button>
+    </form>
+
     <a href="{% url 'dishes' dish.meal.id %}">Back to Dishes</a>
 </body>
 </html>

@@ -2,7 +2,7 @@ from django.shortcuts import redirect
 from django.urls import reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from .models import Day, Meal, Dish, Category, ShoppingList
-from .forms import DishForm
+from .forms import DishForm, CategoryForm
 import logging
 
 
@@ -97,7 +97,15 @@ class CategoryView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['categories'] = self.object.categories.all()
+        context['form'] = CategoryForm(initial={'dish': self.object})
         return context
+
+    def post(self, request, *args, **kwargs):
+        form = CategoryForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('category', args=[self.get_object().id]))
+        return self.render_to_response(self.get_context_data(form=form))
 
 
 class RecipeView(DetailView):
