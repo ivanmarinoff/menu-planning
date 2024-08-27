@@ -47,9 +47,8 @@ class ShoppingListAdmin(admin.ModelAdmin):
 
 class RecipeProductInline(admin.TabularInline):
     model = RecipeProduct
-    extra = 1  # How many extra empty rows to display
-    min_num = 1  # Minimum number of rows
-    max_num = 10  # Maximum number of rows
+    extra = 1  # Number of extra forms to display
+    search_fields = ['product']
 
 
 class RecipeAdmin(admin.ModelAdmin):

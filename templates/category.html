@@ -11,7 +11,7 @@
     <ul>
         {% for category in categories %}
             <li>
-                <a href="{% url 'recipe' category.id %}">{{ category.name }}</a>
+                <a href="{% url 'recipe_list' category.id %}">{{ category.name }}</a>
             </li>
         {% empty %}
             <li>No categories available for this dish.</li>

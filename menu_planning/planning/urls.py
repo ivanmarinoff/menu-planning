@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import HomeView, MenuView, DishesView, CategoryView, RecipeView, ShoppingListView, CreateMealView, \
-    DishCreateView, DishUpdateView
+from .views import HomeView, MenuView, DishesView, CategoryView, ShoppingListView, CreateMealView, \
+    DishCreateView, DishUpdateView, RecipeListView, RecipeDetailView
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),
@@ -9,7 +9,10 @@ urlpatterns = [
     path('meal/<int:meal_id>/dish/add/', DishCreateView.as_view(), name='add_dish'),
     path('dish/<int:pk>/edit/', DishUpdateView.as_view(), name='edit_dish'),
     path('category/<int:pk>/', CategoryView.as_view(), name='category'),
-    path('recipe/<int:pk>/', RecipeView.as_view(), name='recipe'),
+    # path('recipe/<int:pk>/', RecipeView.as_view(), name='recipe'),
+    path('category/<int:pk>/recipes/', RecipeListView.as_view(), name='recipe_list'),
+    # Make sure this URL points to RecipeListView
+    path('recipe/<int:pk>/', RecipeDetailView.as_view(), name='recipe_detail'),
     path('shopping_list/<int:week>/<int:pk>/', ShoppingListView.as_view(), name='shopping_list'),
     path('day/<int:pk>/create-meal/', CreateMealView.as_view(), name='create_meal'),
 ]

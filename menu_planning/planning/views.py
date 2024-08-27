@@ -1,8 +1,8 @@
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
-from .models import Day, Meal, Dish, Category, ShoppingList
-from .forms import DishForm, CategoryForm
+from .models import Day, Meal, Dish, Category, ShoppingList, Recipe
+from .forms import DishForm, CategoryForm, RecipeForm, RecipeProductFormSet
 import logging
 
 
@@ -88,7 +88,6 @@ class DishUpdateView(UpdateView):
         return reverse('dishes', args=[self.object.meal.id])
 
 
-
 class CategoryView(DetailView):
     model = Dish
     template_name = 'category.html'
@@ -108,7 +107,32 @@ class CategoryView(DetailView):
         return self.render_to_response(self.get_context_data(form=form))
 
 
-class RecipeView(DetailView):
+# class RecipeView(DetailView):
+#     model = Category
+#     template_name = 'recipe.html'
+#     context_object_name = 'category'
+#
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['recipes'] = self.object.recipes.all()
+#         return context
+#
+#     def post(self, request, *args, **kwargs):
+#         self.object = self.get_object()
+#         form = RecipeForm(request.POST)
+#         formset = RecipeProductFormSet(request.POST)
+#         if form.is_valid() and formset.is_valid():
+#             recipe = form.save(commit=False)
+#             recipe.category = self.object
+#             recipe.save()
+#             formset.instance = recipe
+#             formset.save()
+#             return redirect(reverse('recipe', args=[self.object.id]))
+#         context = self.get_context_data(form=form, formset=formset)
+#         return self.render_to_response(context)
+
+
+class RecipeListView(DetailView):
     model = Category
     template_name = 'recipe.html'
     context_object_name = 'category'
@@ -116,7 +140,33 @@ class RecipeView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['recipes'] = self.object.recipes.all()
+        if self.request.POST:
+            context['form'] = RecipeForm(self.request.POST)
+            context['formset'] = RecipeProductFormSet(self.request.POST)
+        else:
+            context['form'] = RecipeForm()
+            context['formset'] = RecipeProductFormSet()
         return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = RecipeForm(request.POST)
+        formset = RecipeProductFormSet(request.POST)
+        if form.is_valid() and formset.is_valid():
+            recipe = form.save(commit=False)
+            recipe.category = self.object
+            recipe.save()
+            formset.instance = recipe
+            formset.save()
+            return redirect(reverse('recipe', args=[self.object.id]))
+        context = self.get_context_data(form=form, formset=formset)
+        return self.render_to_response(context)
+
+
+class RecipeDetailView(DetailView):
+    model = Recipe
+    template_name = 'recipe_detail.html'
+    context_object_name = 'recipe'
 
 
 class ShoppingListView(DetailView):

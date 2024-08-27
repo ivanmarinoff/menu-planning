@@ -80,6 +80,10 @@ class Product(models.Model):
 # Model for Recipes
 class Recipe(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='recipes')
+    name = models.CharField(max_length=100)  # New field
+    description = models.TextField(
+        blank=False, null=False, default="Recipe description"
+    )  # New field
     products = models.ManyToManyField(Product, through='RecipeProduct')
 
     def __str__(self):
@@ -94,7 +98,7 @@ class RecipeProduct(models.Model):
     unit = models.CharField(max_length=20)  # e.g., "grams", "liters", "pieces"
 
     def __str__(self):
-        return f"{self.quantity_required} {self.unit} of {self.product.name} for {self.recipe.category.name}"
+        return f"{self.quantity_required} {self.unit} of {self.product.name} for {self.recipe.name}"
 
 
 # Model for Shopping List

@@ -1,3 +1,4 @@
+<!-- templates/recipe.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,6 +20,35 @@
             <li>No recipes available for this category.</li>
         {% endfor %}
     </ul>
+
+    <!-- Form to add a new recipe along with products -->
+    <h2>Add a New Recipe</h2>
+    <form method="post" action="{% url 'recipe_list' category.id %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <h3>Products Needed</h3>
+        {{ formset.management_form }}
+        <table>
+            {% for form in formset.forms %}
+                <tr>
+                    {% for field in form %}
+                        <td>
+                            {{ field.errors }}
+                            {{ field }}
+                        </td>
+                    {% endfor %}
+                    <td>
+                        {% if form.instance.pk %}
+                            <label for="{{ form.prefix }}-DELETE">Delete:</label>
+                            {{ form.DELETE }}
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        <button type="submit">Add Recipe</button>
+    </form>
 
     <a href="{% url 'category' category.dish.id %}">Back to Categories</a>
 </body>

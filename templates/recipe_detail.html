@@ -1,0 +1,24 @@
+<!-- templates/recipe_detail.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ recipe.name }}</title>
+</head>
+<body>
+    <h1>{{ recipe.name }}</h1>
+    <p>{{ recipe.description }}</p>
+
+    <h2>Products Needed</h2>
+    <ul>
+        {% for rp in recipe.recipeproduct_set.all %}
+            <li>{{ rp.quantity_required }} {{ rp.unit }} of {{ rp.product.name }}</li>
+        {% empty %}
+            <li>No products listed for this recipe.</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'recipe_list' recipe.category.id %}">Back to Recipes</a>
+</body>
+</html>
