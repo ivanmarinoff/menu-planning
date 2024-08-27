@@ -158,7 +158,7 @@ class RecipeListView(DetailView):
             recipe.save()
             formset.instance = recipe
             formset.save()
-            return redirect(reverse('recipe', args=[self.object.id]))
+            return redirect(reverse('recipe_detail', args=[self.object.id]))
         context = self.get_context_data(form=form, formset=formset)
         return self.render_to_response(context)
 
