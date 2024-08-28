@@ -6,14 +6,14 @@
     <title>{% if form.instance.pk %}Edit{% else %}Add{% endif %} Dish</title>
 </head>
 <body>
-    <h1>{% if form.instance.pk %}Edit{% else %}Add{% endif %} Dish</h1>
+    <h1>{% if form.instance.pk %}Редактирай{% else %}Добави{% endif %} Ястие</h1>
 
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Save</button>
+        <button type="submit">Запис</button>
     </form>
 
-    <a href="{% if form.instance.pk %}{% url 'dishes' form.instance.meal.id %}{% else %}{% url 'dishes' meal.id %}{% endif %}">Cancel</a>
+    <a href="{% if form.instance.pk %}{% url 'dishes' form.instance.meal.id %}{% else %}{% url 'dishes' meal.id %}{% endif %}">Отказ</a>
 </body>
 </html>

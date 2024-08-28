@@ -50,14 +50,16 @@ class Category(models.Model):
     name = models.CharField(
         max_length=30,
         choices=[
-            ("Meat", "Meat"),
-            ("Fish", "Fish"),
-            ("Dairy Products", "Dairy Products"),
-            ("Cereals", "Cereals"),
-            ("Fruits and vegetables", "Fruits and vegetables"),
-            ("Toppings/Sauces", "Toppings/Sauces"),
-            ("Others", "Others"),
-        ]
+            ("Месо", "Месо"),
+            ("Риба", "Риба"),
+            ("Млечни продукти", "Млечни продукти"),
+            ("Зърнени храни", "Зърнени храни"),
+            ("Плодове и зеленчуци", "Плодове и зеленчуци"),
+            ("Добавки/Сосове", "Добавки/Сосове"),
+            ("Други", "Други"),
+        ],
+        blank=False,
+        null=False,
     )
 
     def __str__(self):

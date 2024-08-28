@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu for {{ day.name }}</title>
+    <title>Меню за {{ day.name }}</title>
 </head>
 <body>
-    <h1>Menu for {{ day.name }}</h1>
+    <h1>Меню за {{ day.name }}</h1>
 
     <!-- Create Menu Button -->
     <a href="{% url 'create_meal' day.id %}">
-        <button>Create Menu</button>
+        <button>Създай меню</button>
     </a>
 
     <ul>
@@ -19,10 +19,10 @@
                 <a href="{% url 'dishes' meal.id %}">{{ meal.name }}</a>
             </li>
         {% empty %}
-            <li>No meals available for this day.</li>
+            <li>Няма налични ястия за този ден.</li>
         {% endfor %}
     </ul>
 
-    <a href="{% url 'home' %}">Back to Weekly Calendar</a>
+    <a href="{% url 'home' %}">Назад към дневния календар</a>
 </body>
 </html>

@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Categories for {{ dish.name }}</title>
+    <title>Категории за {{ dish.name }}</title>
 </head>
 <body>
-    <h1>Categories for {{ dish.name }}</h1>
+    <h1>Категории за  {{ dish.name }}</h1>
 
     <ul>
         {% for category in categories %}
@@ -14,16 +14,16 @@
                 <a href="{% url 'recipe_list' category.id %}">{{ category.name }}</a>
             </li>
         {% empty %}
-            <li>No categories available for this dish.</li>
+            <li>Няма налични категории за това ястие.</li>
         {% endfor %}
     </ul>
 
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Add Category</button>
+        <button type="submit">Добави категория</button>
     </form>
 
-    <a href="{% url 'dishes' dish.meal.id %}">Back to Dishes</a>
+    <a href="{% url 'dishes' dish.meal.id %}">Назад към ястия</a>
 </body>
 </html>

@@ -3,29 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dishes for {{ meal.name }}</title>
+    <title>Ястия за {{ meal.name }}</title>
 </head>
 <body>
-    <h1>Dishes for {{ meal.name }}</h1>
+    <h1>Ястия за {{ meal.name }}</h1>
 
     <!-- Display the form for adding a new dish -->
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Add New Dish</button>
+        <button type="submit">Добави ново ястие</button>
     </form>
 
     <ul>
         {% for dish in dishes %}
             <li>
                 <a href="{% url 'edit_dish' dish.id %}">{{ dish.name }}</a> -
-                <a href="{% url 'category' dish.id %}">View Categories</a>
+                <a href="{% url 'category' dish.id %}">Виж категориите</a>
             </li>
         {% empty %}
-            <li>No dishes available for this meal.</li>
+            <li>Няма налични ястия за това меню.</li>
         {% endfor %}
     </ul>
 
-    <a href="{% url 'menu' meal.day.id %}">Back to Menu</a>
+    <a href="{% url 'menu' meal.day.id %}">Назад към меню</a>
 </body>
 </html>

@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Meal</title>
+    <title>Създайте ново ястие</title>
 </head>
 <body>
-    <h1>Create a New Meal for {{ day.name }}</h1>
+    <h1>Създайте ново ястие за {{ day.name }}</h1>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Save</button>
+        <button type="submit">Запис</button>
     </form>
-    <a href="{% url 'menu' day.id %}">Cancel</a>
+    <a href="{% url 'menu' day.id %}">Отказ</a>
 </body>
 </html>

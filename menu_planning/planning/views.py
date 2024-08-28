@@ -35,7 +35,6 @@ class CreateMealView(CreateView):
 
     def form_valid(self, form):
         day = Day.objects.get(pk=self.kwargs['pk'])
-        print(f"Creating meal for day: {day}")  # Debugging line
         form.instance.day = Day.objects.get(pk=self.kwargs['pk'])
         return super().form_valid(form)
 
