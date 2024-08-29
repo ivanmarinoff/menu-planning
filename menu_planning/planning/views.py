@@ -99,10 +99,15 @@ class CategoryView(DetailView):
         return context
 
     def post(self, request, *args, **kwargs):
+        dish = self.get_object()  # Get the current dish object
         form = CategoryForm(request.POST)
+
         if form.is_valid():
-            form.save()
-            return redirect(reverse('category', args=[self.get_object().id]))
+            category = form.save(commit=False)
+            category.dish = dish  # Set the dish field on the Category instance
+            category.save()
+            return redirect(reverse('category', args=[dish.id]))
+
         return self.render_to_response(self.get_context_data(form=form))
 
 

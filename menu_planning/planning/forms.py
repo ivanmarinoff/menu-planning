@@ -54,6 +54,9 @@ class RecipeProductForm(forms.ModelForm):
     class Meta:
         model = RecipeProduct
         fields = ['product', 'quantity_required', 'unit']
+        labels = {'product': 'Продукт',
+                  'quantity_required': 'Необходимо Количество',
+                  'unit': 'Мерна Единица'}
 
 
 # Create an inline formset for RecipeProduct
@@ -70,6 +73,9 @@ class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
         fields = ['name', 'quantity', 'unit']
+        labels = {'name': 'Продукт',
+                  'quantity': 'Количество',
+                  'unit': 'Мерна Единица'}
 
 
 class ShoppingListForm(forms.ModelForm):
