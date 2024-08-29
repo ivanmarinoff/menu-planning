@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Категории за {{ dish.name }}</title>
+    <title>Категория за {{ dish.name }}</title>
 </head>
 <body>
-    <h1>Категории за  {{ dish.name }}</h1>
+    <h1>Категориия за  {{ dish.name }}</h1>
 
     <ul>
         {% for category in categories %}
@@ -14,7 +14,7 @@
                 <a href="{% url 'recipe_list' category.id %}">{{ category.name }}</a>
             </li>
         {% empty %}
-            <li>Няма налични категории за това ястие.</li>
+            <li>Няма избрана категория за това ястие.</li>
         {% endfor %}
     </ul>
 

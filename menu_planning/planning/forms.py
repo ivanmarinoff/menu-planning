@@ -1,6 +1,6 @@
-from django import forms
+from django import forms, template
 from django.forms import inlineformset_factory
-
+register = template.Library()
 from .models import Day, Meal, Dish, Category, Recipe, Product, ShoppingList, RecipeProduct
 
 
@@ -19,19 +19,35 @@ class MealForm(forms.ModelForm):
 class DishForm(forms.ModelForm):
     class Meta:
         model = Dish
-        fields = ['meal', 'name']
+        fields = ['name', 'description']
+        labels = {'name': 'Ястие',
+                  'description': 'Описание'}
 
 
 class CategoryForm(forms.ModelForm):
     class Meta:
         model = Category
-        fields = ['dish', 'name']
+        fields = ['name']
+        labels = {'name': 'Категория'}
 
 
 class RecipeForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.__clear_fields_helper_text()
+
+        for field_name in ['name', 'description']:
+            self.fields[field_name].help_text = None
+
+    def __clear_fields_helper_text(self):
+        for field in self.fields.values():
+            field.help_text = None
+            field.widget.attrs['class'] = 'form-control'
     class Meta:
         model = Recipe
         fields = ['name', 'description']
+        labels = {'name': 'Рецепта',
+                  'description': 'Описание'}
 
 
 class RecipeProductForm(forms.ModelForm):
