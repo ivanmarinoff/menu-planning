@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ястия за {{ meal.name }}</title>
+</head>
+<body>
+<h1>Ястия за {{ meal.name }}</h1>
+
+
+<!-- Display the form for adding a new dish -->
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Запис</button>
+</form>
+
+
+<a href="{% url 'menu' meal.day.id %}">Назад към меню</a>
+</body>
+</html>

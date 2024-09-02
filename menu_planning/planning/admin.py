@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Day, Meal, Dish, Category, ShoppingList, Recipe, Product, ShoppingListProduct, RecipeProduct
+from .models import Day, Meal, Dish, ShoppingList, Recipe, Product, ShoppingListProduct, RecipeProduct
 
 
 class DayAdmin(admin.ModelAdmin):
@@ -15,12 +15,6 @@ class MealAdmin(admin.ModelAdmin):
 class DishAdmin(admin.ModelAdmin):
     list_display = ['name', 'meal']
 
-
-@admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
-    list_display = ['name', 'dish']  # Display the name and dish fields in the list view
-    list_filter = ['name', 'dish']  # Add filters for name and dish
-    search_fields = ['name', 'dish__name']  # Enable searching by category name and dish name
 
 
 @admin.register(Product)
@@ -51,13 +45,13 @@ class RecipeProductInline(admin.TabularInline):
     search_fields = ['product']
 
 
-class RecipeAdmin(admin.ModelAdmin):
-    list_display = ['category']  # Display the category in the list view
-    list_filter = ['category']  # Add filters for category
-    search_fields = ['category__name']  # Enable searching by category name
-    inlines = [RecipeProductInline]  # Inline for managing related products
+# class RecipeAdmin(admin.ModelAdmin):
+#     list_display = ['category']  # Display the category in the list view
+#     list_filter = ['category']  # Add filters for category
+#     search_fields = ['category__name']  # Enable searching by category name
+#     inlines = [RecipeProductInline]  # Inline for managing related products
 
 
-admin.site.register(Recipe, RecipeAdmin)
+# admin.site.register(Recipe, RecipeAdmin)
 admin.site.register(Day, DayAdmin)
 admin.site.register(ShoppingList, ShoppingListAdmin)

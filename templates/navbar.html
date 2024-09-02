@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Navbar</title>
+</head>
+<body>
+<button>
+    <li>
+{#        <a href="{% url 'menu' meal.day.id %}" target="_blank">Menu</a>#}
+
+        <a href="{% url 'dishes' meal.id %}" target="_blank">Dishes</a>
+        <a href="{% url 'recipe_detail' pk=pk %}" target="_blank">Recipes</a>
+    </li>
+</button>
+</body>
+</html>

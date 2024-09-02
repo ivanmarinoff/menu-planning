@@ -1,7 +1,8 @@
 from django import forms, template
 from django.forms import inlineformset_factory
+from .models import Day, Meal, Dish, Recipe, Product, ShoppingList, RecipeProduct
+
 register = template.Library()
-from .models import Day, Meal, Dish, Category, Recipe, Product, ShoppingList, RecipeProduct
 
 
 class DayForm(forms.ModelForm):
@@ -24,11 +25,11 @@ class DishForm(forms.ModelForm):
                   'description': 'Описание'}
 
 
-class CategoryForm(forms.ModelForm):
-    class Meta:
-        model = Category
-        fields = ['name']
-        labels = {'name': 'Категория'}
+# class CategoryForm(forms.ModelForm):
+#     class Meta:
+#         model = Category
+#         fields = ['name']
+#         labels = {'name': 'Категория'}
 
 
 class RecipeForm(forms.ModelForm):
@@ -43,6 +44,7 @@ class RecipeForm(forms.ModelForm):
         for field in self.fields.values():
             field.help_text = None
             field.widget.attrs['class'] = 'form-control'
+
     class Meta:
         model = Recipe
         fields = ['name', 'description']
@@ -53,10 +55,10 @@ class RecipeForm(forms.ModelForm):
 class RecipeProductForm(forms.ModelForm):
     class Meta:
         model = RecipeProduct
-        fields = ['product', 'quantity_required', 'unit']
+        fields = ['product', 'unit', 'quantity_required']
         labels = {'product': 'Продукт',
-                  'quantity_required': 'Необходимо Количество',
-                  'unit': 'Мерна Единица'}
+                  'unit': 'Мерна Единица',
+                  'quantity_required': 'Необходимо Количество'}
 
 
 # Create an inline formset for RecipeProduct

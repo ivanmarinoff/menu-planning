@@ -1,29 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Категория за {{ dish.name }}</title>
-</head>
-<body>
-    <h1>Категориия за  {{ dish.name }}</h1>
-
-    <ul>
-        {% for category in categories %}
-            <li>
-                <a href="{% url 'recipe_list' category.id %}">{{ category.name }}</a>
-            </li>
-        {% empty %}
-            <li>Няма избрана категория за това ястие.</li>
-        {% endfor %}
-    </ul>
-
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Добави категория</button>
-    </form>
-
-    <a href="{% url 'dishes' dish.meal.id %}">Назад към ястия</a>
-</body>
-</html>
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <meta name="viewport" content="width=device-width, initial-scale=1.0">#}
+{#    <title>Категория за {{ dish.name }}</title>#}
+{#</head>#}
+{#<body>#}
+{#    <h1>Категориия за  {{ dish.name }}</h1>#}
+{##}
+{#    <ul>#}
+{#        {% for category in categories %}#}
+{#            <li>#}
+{#                <a href="{% url 'recipe_list' category.id %}">{{ category.name }}</a>#}
+{#            </li>#}
+{#        {% empty %}#}
+{#            <li>Няма избрана категория за това ястие.</li>#}
+{#        {% endfor %}#}
+{#    </ul>#}
+{##}
+{#    <form method="post">#}
+{#        {% csrf_token %}#}
+{#        {{ form.as_p }}#}
+{#        <button type="submit">Добави категория</button>#}
+{#    </form>#}
+{##}
+{#    <a href="{% url 'dishes' dish.meal.id %}">Назад към ястия</a>#}
+{#</body>#}
+{#</html>#}

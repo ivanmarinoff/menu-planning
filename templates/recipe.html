@@ -19,7 +19,7 @@
     </script>
 </head>
 <body>
-    <h1>Рецепти за {{ category.name }}</h1>
+    <h1>Рецепти за {{ dish.name }}</h1>
 
     <ul>
         {% for recipe in recipes %}
@@ -35,9 +35,12 @@
 
     <!-- Form to add a new recipe along with products -->
     <h2>Добави нова рецепта</h2>
-    <form method="post" action="{% url 'recipe_list' category.id %}">
+    {% for recipe in recipes %}
+    <form method="post" action="{% url 'recipe_list' recipes.id %}">
         {% csrf_token %}
         {{ form.as_p }}
+    {% empty %}
+    {% endfor %}
 
         <h3>Необходими продукти</h3>
         {{ formset.management_form }}
@@ -66,6 +69,6 @@
         </tr>
     </div>
 
-    <a href="{% url 'category' category.dish.id %}">Назад към категории</a>
+    <a href="{% url 'recipe_detail' dish.id %}">Назад към категории</a>
 </body>
 </html>

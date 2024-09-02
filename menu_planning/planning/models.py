@@ -44,50 +44,32 @@ class Dish(models.Model):
         return reverse('category', args=[str(self.id)])
 
 
-# Model for Categories
-class Category(models.Model):
-    dish = models.ForeignKey(Dish, on_delete=models.CASCADE, related_name='categories')
-    name = models.CharField(
-        max_length=30,
-        choices=[
-            ("Месо", "Месо"),
-            ("Риба", "Риба"),
-            ("Млечни продукти", "Млечни продукти"),
-            ("Зърнени храни", "Зърнени храни"),
-            ("Плодове и зеленчуци", "Плодове и зеленчуци"),
-            ("Добавки/Сосове", "Добавки/Сосове"),
-            ("Други", "Други"),
-        ]
-    )
-
-    def __str__(self):
-        return f"{self.name} for {self.dish.name}"
-
-    def get_absolute_url(self):
-        return reverse('recipe', args=[str(self.id)])
-
-
 # Model for Products
 class Product(models.Model):
-    name = models.CharField(max_length=100)  # e.g., "Chicken", "Salmon", "Milk"
-    quantity = models.DecimalField(max_digits=10, decimal_places=2)  # e.g., weight in grams, liters, etc.
-    unit = models.CharField(max_length=20)  # e.g., "grams", "liters", "pieces"
+    products = models.ForeignKey(Dish, on_delete=models.CASCADE, related_name='products')
+    name = models.CharField(max_length=100)
+    unit = models.CharField(
+        max_length=20,
+        choices=[("броя", "броя"),
+                 ("гр.", "гр."),
+                 ],
+        default="гр.",
+    )
+    quantity = models.DecimalField(max_digits=10, decimal_places=3)
 
     def __str__(self):
-        return f"{self.name} ({self.quantity} {self.unit})"
+        return f"{self.name} ({self.unit} {self.quantity})"
 
 
 # Model for Recipes
 class Recipe(models.Model):
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='recipes')
-    name = models.CharField(max_length=100)  # New field
-    description = models.TextField(
-        blank=False, null=False, default="Recipe description"
-    )  # New field
+    dish = models.ForeignKey(Dish, on_delete=models.CASCADE, related_name='recipes')
+    name = models.CharField(max_length=100)
+    description = models.TextField(blank=False, null=False, default="Recipe description")
     products = models.ManyToManyField(Product, through='RecipeProduct')
 
     def __str__(self):
-        return f"Recipe for {self.category.name}"
+        return f"Recipe for {self.dish.name}"
 
 
 # Through Model for Recipe Products
