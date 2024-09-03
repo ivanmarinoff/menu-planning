@@ -1,24 +1,66 @@
-<!-- templates/recipe_detail.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ recipe.name }}</title>
+{#    <script>#}
+{#        function addForm(event) {#}
+{#            event.preventDefault();#}
+{#            const formIdx = document.querySelectorAll('tr.form-row').length;#}
+{#            const formsetContainer = document.getElementById('formset-container');#}
+{#            const newFormHtml = document.getElementById('empty-form').innerHTML.replace(/__prefix__/g, formIdx);#}
+{#            const newRow = document.createElement('tr');#}
+{#            newRow.className = 'form-row';#}
+{#            newRow.innerHTML = newFormHtml;#}
+{#            formsetContainer.appendChild(newRow);#}
+{#            const totalForms = document.getElementById('id_form-TOTAL_FORMS');#}
+{#            totalForms.value = formIdx + 1;#}
+{#        }#}
+{#    </script>#}
 </head>
 <body>
-    <h1>{{ recipe.name }}</h1>
-    <p>{{ recipe.description }}</p>
+<h1>{{ recipe.name }}</h1>
+<p>{{ recipe.description }}</p>
 
-    <h2>Необходими продукти</h2>
-    <ul>
-        {% for rp in recipe.recipeproduct_set.all %}
-            <li>{{ rp.quantity_required }} {{ rp.unit }} of {{ rp.product.name }}</li>
-        {% empty %}
-            <li>Няма продукти в листа за рецептите.</li>
+<h2>Необходими продукти</h2>
+<p>Total Products: {{ recipe.recipeproduct_set.count }}</p>
+<ul>
+    {% for rp in recipe.recipeproduct_set.all %}
+        <li>{{ rp.quantity_required }} {{ rp.unit }} of {{ rp.product.name }}</li>
+    {% empty %}
+        <li>Няма продукти в листа за рецептите.</li>
+    {% endfor %}
+</ul>
+
+<h3>Добави продукти</h3>
+<form method="post" action="{% url 'add_product' recipe.id %}">
+    {% csrf_token %}
+    {{ formset.management_form }}
+    <table id="formset-container">
+        {% for form in formset.forms %}
+            <tr class="form-row">
+                {% for field in form %}
+                    <td>
+                        {{ field.errors }}
+                        {{ field.label_tag }} {{ field }}
+                    </td>
+                {% endfor %}
+            </tr>
         {% endfor %}
-    </ul>
+    </table>
+    <button type="submit">Добави продукти</button>
+{#    <button type="button" onclick="addForm(event)">Добави още продукт</button>#}
+</form>
 
-    <a href="{% url 'recipe_list' recipe.category.id %}">Назад към рецепти</a>
+<div id="empty-form" style="display: none;">
+    <tr class="form-row">
+        {% for field in formset.empty_form %}
+            <td>{{ field.label_tag }} {{ field }}</td>
+        {% endfor %}
+    </tr>
+</div>
+
+<a href="{% url 'recipe_list' recipe.dish.id %}">Назад към рецепти</a>
 </body>
 </html>

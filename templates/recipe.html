@@ -3,20 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Рецепти за {{ category.name }}</title>
-    <script>
-        // Function to dynamically add a new form to the formset
-        function addForm(event) {
-            event.preventDefault();
-            var formIdx = document.querySelectorAll('tr.form-row').length;
-            var formsetContainer = document.getElementById('formset-container');
-            var newFormHtml = document.getElementById('empty-form').innerHTML.replace(/__prefix__/g, formIdx);
-            var newRow = document.createElement('tr');
-            newRow.className = 'form-row';
-            newRow.innerHTML = newFormHtml;
-            formsetContainer.appendChild(newRow);
-        }
-    </script>
+    <title>Рецепти за {{ dish.name }}</title>
 </head>
 <body>
     <h1>Рецепти за {{ dish.name }}</h1>
@@ -33,42 +20,14 @@
         {% endfor %}
     </ul>
 
-    <!-- Form to add a new recipe along with products -->
+    <!-- Form to add a new recipe -->
     <h2>Добави нова рецепта</h2>
-    {% for recipe in recipes %}
-    <form method="post" action="{% url 'recipe_list' recipes.id %}">
+    <form method="post" action="{% url 'recipe_list' dish.id %}">
         {% csrf_token %}
         {{ form.as_p }}
-    {% empty %}
-    {% endfor %}
-
-        <h3>Необходими продукти</h3>
-        {{ formset.management_form }}
-        <table id="formset-container">
-            {% for form in formset.forms %}
-                <tr class="form-row">
-                    {% for field in form %}
-                        <td>
-                            {{ field.errors }}
-                            {{ field.label_tag }} {{ field }}
-                        </td>
-                    {% endfor %}
-                </tr>
-            {% endfor %}
-        </table>
         <button type="submit">Добави рецепта</button>
-        <button type="button" onclick="addForm(event)">Добави продукт</button>
     </form>
 
-    <!-- Hidden empty form template for cloning -->
-    <div id="empty-form" style="display: none;">
-        <tr class="form-row">
-            {% for field in formset.empty_form %}
-                <td>{{ field }}</td>
-            {% endfor %}
-        </tr>
-    </div>
-
-    <a href="{% url 'recipe_detail' dish.id %}">Назад към категории</a>
+    <a href="{% url 'dishes' dish.meal.id %}">Назад към ястия</a>
 </body>
 </html>
