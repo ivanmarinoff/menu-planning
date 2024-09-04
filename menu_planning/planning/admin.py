@@ -45,13 +45,11 @@ class RecipeProductInline(admin.TabularInline):
     search_fields = ['product']
 
 
-# class RecipeAdmin(admin.ModelAdmin):
-#     list_display = ['category']  # Display the category in the list view
-#     list_filter = ['category']  # Add filters for category
-#     search_fields = ['category__name']  # Enable searching by category name
-#     inlines = [RecipeProductInline]  # Inline for managing related products
+class RecipeAdmin(admin.ModelAdmin):
+    list_display = ['name', 'dish', 'description']
+    inlines = [RecipeProductInline]
 
 
-# admin.site.register(Recipe, RecipeAdmin)
+admin.site.register(Recipe, RecipeAdmin)
 admin.site.register(Day, DayAdmin)
 admin.site.register(ShoppingList, ShoppingListAdmin)

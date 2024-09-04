@@ -26,7 +26,6 @@ class DishForm(forms.ModelForm):
                   'description': 'Описание'}
 
 
-
 class RecipeForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

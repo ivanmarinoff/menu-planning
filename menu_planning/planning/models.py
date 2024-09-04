@@ -77,7 +77,13 @@ class RecipeProduct(models.Model):
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity_required = models.DecimalField(max_digits=10, decimal_places=2)  # e.g., required quantity
-    unit = models.CharField(max_length=20)  # e.g., "grams", "liters", "pieces"
+    unit = models.CharField(
+        max_length=20,
+        choices=[("броя", "броя"),
+                 ("гр.", "гр."),
+                 ],
+        default="гр.",
+    )
 
     def __str__(self):
         return f"{self.quantity_required} {self.unit} of {self.product.name} for {self.recipe.name}"
