@@ -8,9 +8,8 @@ urlpatterns = [
     path('meal/<int:pk>/dishes/', views.DishesView.as_view(), name='dishes'),
     path('meal/<int:meal_id>/dish/add/', views.DishCreateView.as_view(), name='add_dish'),
     path('dish/<int:pk>/edit/', views.DishUpdateView.as_view(), name='edit_dish'),
-    path('add_product/<int:pk>/', views.AddProductView.as_view(), name='add_product'),
     path('recipes/<int:pk>/recipes/', views.RecipeListView.as_view(), name='recipe_list'),
     path('recipe/<int:pk>/', views.RecipeDetailView.as_view(), name='recipe_detail'),
-    path('shopping_list/<int:week>/<int:pk>/', views.ShoppingListView.as_view(), name='shopping_list'),
+    path('shopping_list/<int:pk>/', views.ShoppingListView.as_view(), name='shopping_list'),
     path('day/<int:pk>/create-meal/', views.CreateMealView.as_view(), name='create_meal'),
 ]

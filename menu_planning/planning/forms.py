@@ -1,6 +1,6 @@
 from django import template
 from django.forms import inlineformset_factory
-from .models import Day, Meal, Dish, Recipe, Product, ShoppingList, RecipeProduct
+from .models import Day, Meal, Dish, Recipe, Product, ShoppingList, RecipeProduct, ShoppingListProduct
 from django import forms
 
 register = template.Library()
@@ -60,6 +60,9 @@ RecipeProductFormSet = inlineformset_factory(
     Recipe,
     RecipeProduct,
     fields=['product', 'unit', 'quantity_required'],
+    labels={'product': 'Продукт',
+            'unit': 'Мерна Единица',
+            'quantity_required': 'Необходимо Количество'},
     extra=1,
     can_delete=True
 )
@@ -68,13 +71,22 @@ RecipeProductFormSet = inlineformset_factory(
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ['name', 'quantity', 'unit']
+        fields = ['name', 'quantity_in_stock', 'unit']
         labels = {'name': 'Продукт',
-                  'quantity': 'Количество',
+                  'quantity_in_stock': 'Количество в наличност',
                   'unit': 'Мерна Единица'}
 
 
 class ShoppingListForm(forms.ModelForm):
     class Meta:
         model = ShoppingList
-        fields = ['week', 'day', 'products_needed']
+        fields = ['recipe']
+
+
+class ShoppingListProductForm(forms.ModelForm):
+    class Meta:
+        model = ShoppingListProduct
+        fields = ['product', 'quantity_available', 'quantity_required']
+        labels = {'product': 'Продукт',
+                  'quantity_available': 'Налично количество',
+                  'quantity_required': 'Необходимо Количество'}

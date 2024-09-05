@@ -16,10 +16,9 @@ class DishAdmin(admin.ModelAdmin):
     list_display = ['name', 'meal']
 
 
-
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['name', 'quantity', 'unit']
+    list_display = ['name', 'quantity_in_stock', 'unit']
 
 
 @admin.register(ShoppingListProduct)
@@ -28,15 +27,19 @@ class ShoppingListProductAdmin(admin.ModelAdmin):
 
 
 class ShoppingListProductInline(admin.TabularInline):
-    model = ShoppingList.products_needed.through
+    model = ShoppingListProduct
     extra = 1  # How many rows to show by default
 
 
 class ShoppingListAdmin(admin.ModelAdmin):
-    list_display = ['week', 'day']  # Display the week number and day in the list view
-    list_filter = ['week', 'day']  # Add filters for week and day
-    search_fields = ['week', 'day__name']  # Enable searching by week and day name
-    inlines = [ShoppingListProductInline]  # Inline for managing related products
+    list_display = ['recipe']
+    list_filter = ['recipe']
+    inlines = [ShoppingListProductInline]
+
+
+class ShoppingListInline(admin.TabularInline):
+    model = ShoppingList
+    extra = 1
 
 
 class RecipeProductInline(admin.TabularInline):

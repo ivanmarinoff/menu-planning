@@ -3,22 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Списък за пазаруване за{{ shopping_list.day.name }} (Week {{ shopping_list.week }})</title>
+    <title>Shopping List for {{ day.name }}</title>
 </head>
 <body>
-    <h1>Списък за пазаруване за {{ shopping_list.day.name }} (Week {{ shopping_list.week }})</h1>
-
+    <h1>Shopping List for {{ day.name }}</h1>
     <ul>
         {% for item in shopping_list.items.all %}
             <li>
-                {{ item.product.name }}: {{ item.quantity }} {{ item.product.unit }}
-                (Available: {{ item.product.available_quantity }})
+                {{ item.quantity }} {{ item.unit }} of {{ item.product.name }} (Available: {{ item.product.quantity_in_stock }} {{ item.unit }})
             </li>
         {% empty %}
-            <li>Няма добавени продукти в списъка.</li>
+            <li>No items needed for the shopping list.</li>
         {% endfor %}
     </ul>
+    {{ product.name }}
+    {{ quantity_required }}
 
-    <a href="{% url 'home' %}">Назад към седмичния календар</a>
+    <a href="{% url 'menu' day.id %}">Back to Menu</a>
 </body>
 </html>
