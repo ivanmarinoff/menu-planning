@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summary Shopping List</title>
+</head>
+<body>
+    <h1>Summary Shopping List</h1>
+
+    {% if summary %}
+        <ul>
+            {% for item in summary %}
+                <li>
+                    {{ item.total_quantity }} {{ item.product__unit }} of {{ item.product__name }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No products in the shopping list.</p>
+    {% endif %}
+
+    <a href="{% url 'home' %}">Back to Home</a>
+</body>
+</html>

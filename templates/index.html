@@ -31,7 +31,10 @@
             <a class="day" href="{{ day.get_absolute_url }}">{{ day.name }}</a>
         {% endfor %}
     </div>
-
+    <div class="calendar">
+ <a href="{% url 'summary_shopping_list' %}">
+        <button>View Summary Shopping List</button>
+    </a></div>
 </body>
 {#<a href="{% url 'menu' pk=day.pk %}">{{ day.name }} </a>#}
 </html>

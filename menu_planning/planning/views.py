@@ -1,5 +1,8 @@
+from django.db.models import Sum
 from django.shortcuts import redirect, get_object_or_404, render
 from django.urls import reverse
+from django.views.generic import TemplateView
+
 from .models import Day, Meal, Dish, ShoppingList, Recipe, ShoppingListProduct
 from .forms import DishForm, RecipeForm, RecipeProductFormSet, ShoppingListProductForm
 from django.views import generic as views
@@ -184,5 +187,23 @@ class ShoppingListView(views.ListView):
         context = super().get_context_data(**kwargs)
         day_id = self.kwargs.get('day_id')
         context['day'] = get_object_or_404(Day, pk=day_id)
+        return context
+
+
+class SummaryShoppingListView(TemplateView):
+    template_name = 'summary_shopping_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # Aggregate products from all shopping lists, summing their quantities
+        summary = (
+            ShoppingListProduct.objects
+            .values('product__name', 'product__unit')
+            .annotate(total_quantity=Sum('quantity_required'))
+            .order_by('product__name')
+        )
+
+        context['summary'] = summary
         return context
 
