@@ -177,11 +177,12 @@ class ShoppingListView(views.ListView):
     context_object_name = 'shopping_lists'
 
     def get_queryset(self):
-        day_id = self.kwargs.get('pk')  # Using 'pk' instead of 'day_id'
+        day_id = self.kwargs.get('day_id')
         return ShoppingList.objects.filter(recipe__dish__meal__day_id=day_id)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['day'] = Day.objects.get(pk=self.kwargs.get('pk'))  # Fetch the correct day
+        day_id = self.kwargs.get('day_id')
+        context['day'] = get_object_or_404(Day, pk=day_id)
         return context
 

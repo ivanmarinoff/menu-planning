@@ -7,17 +7,21 @@
 </head>
 <body>
     <h1>Shopping List for {{ day.name }}</h1>
-    <ul>
-        {% for item in shopping_list.items.all %}
-            <li>
-                {{ item.quantity }} {{ item.unit }} of {{ item.product.name }} (Available: {{ item.product.quantity_in_stock }} {{ item.unit }})
-            </li>
-        {% empty %}
-            <li>No items needed for the shopping list.</li>
+
+    {% if shopping_lists %}
+        {% for shopping_list in shopping_lists %}
+            <h2>Recipe: {{ shopping_list.recipe.name }}</h2>
+            <ul>
+                {% for product in shopping_list.recipe.recipeproduct_set.all %}
+                    <li>
+                        {{ product.quantity_required }} {{ product.unit }} of {{ product.product.name }}
+                    </li>
+                {% endfor %}
+            </ul>
         {% endfor %}
-    </ul>
-    {{ product.name }}
-    {{ quantity_required }}
+    {% else %}
+        <p>No shopping list available for this day.</p>
+    {% endif %}
 
     <a href="{% url 'menu' day.id %}">Back to Menu</a>
 </body>
