@@ -1,5 +1,15 @@
-{#{% extends 'navbar.html' %}#}
+{% load static %}
+
 <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static "style/style.css" %}"/>
+    <title>Calendar</title>
+</head>
+
 <html>
 <head>
     <title>Седмичен календар</title>
@@ -9,6 +19,7 @@
             justify-content: space-around;
             margin-top: 20px;
         }
+
         .day {
             padding: 20px;
             border: 1px solid #ccc;
@@ -17,22 +28,39 @@
             cursor: pointer;
             background-color: #f8f9fa;
         }
+
         .day:hover {
             background-color: #e9ecef;
         }
     </style>
 </head>
 <body>
-
-    <h1>Седмичен календар</h1>
-
-    <div class="calendar">
-        {% for day in days %}
-            <a class="day" href="{{ day.get_absolute_url }}">{{ day.name }}</a>
-        {% endfor %}
+<div class="plant-card">
+    <div class="plant-header">
+        <ul class="blog">
+            {% for day in days %}
+                <div>
+                    <a href="{{ day.get_absolute_url }}">
+                        <img src="/static/images/fruits.jpg" alt="{{ day.name }}"/>
+                    </a>
+{#                    <p>Menu for {{ day.name }}</p>#}
+                    <a href="{{ day.get_absolute_url }}">Меню за {{ day.name }}</a>
+                </div>
+            {% endfor %}
+        </ul>
     </div>
-    <div class="calendar">
- <a href="{% url 'summary_shopping_list' %}">
+</div>
+
+
+{#<h1>Седмичен календар</h1>#}
+{##}
+{#<div class="calendar">#}
+{#    {% for day in days %}#}
+{#        <a class="day" href="{{ day.get_absolute_url }}">{{ day.name }}</a>#}
+{#    {% endfor %}#}
+{#</div>#}
+<div class="calendar">
+    <a href="{% url 'summary_shopping_list' %}">
         <button>View Summary Shopping List</button>
     </a></div>
 </body>
