@@ -1,11 +1,16 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static "style/style.css" %}"/>
     <title>Summary Shopping List</title>
 </head>
 <body>
+<section id="index-headline">
+        <div class="index-message">
+    <div class="plant-card">
     <h1>Summary Shopping List</h1>
 
     {% if summary %}
@@ -21,5 +26,9 @@
     {% endif %}
 
     <a href="{% url 'home' %}">Back to Home</a>
+</div>
+</div>
+
+</section>
 </body>
 </html>

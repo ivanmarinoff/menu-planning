@@ -1,28 +1,39 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static "style/style.css" %}"/>
     <title>Shopping List for {{ day.name }}</title>
 </head>
 <body>
-    <h1>Shopping List for {{ day.name }}</h1>
+   <section id="index-headline">
+        <div class="index-message">
+    <div class="plant-card">
+
+    <h1>Shopping List за {{ day.name }}</h1>
 
     {% if shopping_lists %}
         {% for shopping_list in shopping_lists %}
-            <h2>Recipe: {{ shopping_list.recipe.name }}</h2>
-            <ul>
+            <h2>Рецепта за: {{ shopping_list.recipe.name }}</h2>
+            <h1><ul>
                 {% for product in shopping_list.recipe.recipeproduct_set.all %}
                     <li>
                         {{ product.quantity_required }} {{ product.unit }} of {{ product.product.name }}
                     </li>
                 {% endfor %}
             </ul>
+            </h1>
         {% endfor %}
     {% else %}
         <p>No shopping list available for this day.</p>
     {% endif %}
 
-    <a href="{% url 'menu' day.id %}">Back to Menu</a>
+    <button><a href="{% url 'menu' day.id %}">Back to Menu</a></button>
+</div>
+</div>
+
+</section>
 </body>
 </html>
