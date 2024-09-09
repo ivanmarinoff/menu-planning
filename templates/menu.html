@@ -9,35 +9,32 @@
 </head>
 <body>
 <section id="index-headline">
-        <div class="index-message">
-    <div class="plant-card">
-    <h1>Меню за {{ day.name }}</h1>
+    <div class="index-message">
+        <div class="plant-card">
+            <h3>Меню за {{ day.name }}</h3>
+            <ul>
+                <h1>
+                    {% for meal in meals %}
+                        <ol>
+                            <a href="{% url 'dishes' meal.id %}"><span>{{ meal.name }}</span></a>
+                        </ol>
+                    {% empty %}
+                        <ol><span>Няма налични ястия за този ден.</span></ol>
+                    {% endfor %}
+                </h1>
+            </ul>
+<button>
+    <h1>
+        <a href="{% url 'create_meal' day.id %}">Създай меню</a>
+    </h1>
+</button>
 
-    <!-- Create Menu Button -->
-    <a href="{% url 'create_meal' day.id %}">
+        </div>
         <button>
-            <h1>Създай меню</h1>
+            <h1><a href="{% url 'home' %}">Назад към дневния календар</a></h1>
         </button>
-    </a>
+    </div>
 
-    <ul><h1>
-        {% for meal in meals %}
-            <li>
-                <a href="{% url 'dishes' meal.id %}">{{ meal.name }}</a>
-            </li>
-        {% empty %}
-            <li>Няма налични ястия за този ден.</li>
-        {% endfor %}
-    </h1></ul>
-
-
-
-</div>
-            <button>
-                <h1><a href="{% url 'home' %}">Назад към дневния календар</a></h1>
-            </button>
-</div>
-</div>
 
 </section>
 </body>

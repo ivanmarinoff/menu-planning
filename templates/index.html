@@ -13,26 +13,26 @@
 <html>
 <head>
     <title>Седмичен календар</title>
-    <style>
-        .calendar {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 20px;
-        }
-
-        .day {
-            padding: 20px;
-            border: 1px solid #ccc;
-            text-align: center;
-            width: 100px;
-            cursor: pointer;
-            background-color: #f8f9fa;
-        }
-
-        .day:hover {
-            background-color: #e9ecef;
-        }
-    </style>
+{#    <style>#}
+{#        .calendar {#}
+{#            display: flex;#}
+{#            justify-content: space-around;#}
+{#            margin-top: 20px;#}
+{#        }#}
+{##}
+{#        .day {#}
+{#            padding: 20px;#}
+{#            border: 1px solid #ccc;#}
+{#            text-align: center;#}
+{#            width: 100px;#}
+{#            cursor: pointer;#}
+{#            background-color: #f8f9fa;#}
+{#        }#}
+{##}
+{#        .day:hover {#}
+{#            background-color: #e9ecef;#}
+{#        }#}
+{#    </style>#}
 </head>
 <body>
 <div class="plant-card">
@@ -59,10 +59,14 @@
 {#        <a class="day" href="{{ day.get_absolute_url }}">{{ day.name }}</a>#}
 {#    {% endfor %}#}
 {#</div>#}
-<div class="calendar">
-    <a href="{% url 'summary_shopping_list' %}">
-        <button>View Summary Shopping List</button>
-    </a></div>
+<div class="index-message">
+<div id="index-headline">
+
+    <button><h2><a href="{% url 'summary_shopping_list' %}">
+        <span>View Summary Shopping List</span>
+    </a></h2></button>
+</div>
+</div>
 </body>
 {#<a href="{% url 'menu' pk=day.pk %}">{{ day.name }} </a>#}
 </html>

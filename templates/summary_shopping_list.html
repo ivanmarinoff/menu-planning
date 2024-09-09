@@ -11,22 +11,22 @@
 <section id="index-headline">
         <div class="index-message">
     <div class="plant-card">
-    <h1>Summary Shopping List</h1>
+    <h3>Summary Shopping List</h3>
 
     {% if summary %}
         <ul>
             {% for item in summary %}
-                <li>
-                    {{ item.total_quantity }} {{ item.product__unit }} of {{ item.product__name }}
-                </li>
+                <ol>
+                   <h1><span>{{ item.total_quantity }} {{ item.product__unit }} - {{ item.product__name }}</span></h1>
+                </ol>
             {% endfor %}
         </ul>
     {% else %}
         <p>No products in the shopping list.</p>
     {% endif %}
 
-    <a href="{% url 'home' %}">Back to Home</a>
-</div>
+
+</div><button><h2><a href="{% url 'home' %}">Back to Home</a></h2></button>
 </div>
 
 </section>
