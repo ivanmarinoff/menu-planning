@@ -66,6 +66,7 @@ RecipeProductFormSet = inlineformset_factory(
     extra=1,
     can_delete=True
 )
+RecipeProductFormSet.exclude = ['id', 'recipe']
 
 
 class ProductForm(forms.ModelForm):

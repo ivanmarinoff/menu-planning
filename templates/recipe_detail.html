@@ -1,65 +1,77 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static "style/style.css" %}"/>
     <title>{{ recipe.name }}</title>
 </head>
 <body>
-<h1>{{ recipe.name }}</h1>
-<p>{{ recipe.description }}</p>
 
-<h2>Необходими продукти</h2>
-<ul>
-    {% for rp in recipe.recipeproduct_set.all %}
-        <li>{{ rp.quantity_required }} {{ rp.unit }} of {{ rp.product.name }}</li>
-    {% empty %}
-        <li>Няма продукти в листа за рецептите.</li>
-    {% endfor %}
-</ul>
+<section id="index-headline">
+    <div class="index-message">
+        <div class="plant-card">
 
-<h3>Добави продукти</h3>
-<form method="post">
-    {% csrf_token %}
-    {{ formset.management_form }}
-    <table id="formset-container">
-        {% for form in formset.forms %}
-            <tr class="form-row">
-                {% for field in form %}
-                    <td>
-                        {{ field.errors }}
-                        {{ field.label_tag }} {{ field }}
-                    </td>
+            <h1>{{ recipe.name }}</h1>
+            <p>{{ recipe.description }}</p>
+
+            <h2>Необходими продукти</h2>
+            <ul>
+                {% for item in products_with_calories %}
+                    <li>
+                        {{ item.product.quantity_required }} {{ item.product.unit }} of {{ item.product.product.name }}
+                        {% if item.calories %}
+                            - Calories: {{ item.calories }} kcal
+                        {% endif %}
+                    </li>
                 {% endfor %}
-            </tr>
-        {% endfor %}
-    </table>
-    <button type="submit">Добави продукти</button>
-</form>
+                {#    {% for rp in recipe.recipeproduct_set.all %}#}
+                {#        <li>{{ rp.quantity_required }} {{ rp.unit }} of {{ rp.product.name }}</li>#}
+                {#    {% empty %}#}
+                {#        <li>Няма продукти в листа за рецептите.</li>#}
+                {#    {% endfor %}#}
+            </ul>
+            <p><strong>Total Calories for Recipe:</strong> {{ total_calories }} kcal</p>
 
-<div id="empty-form" style="display: none;">
-    <tr class="form-row">
-        {% for field in formset.empty_form %}
-            <td>{{ field.label_tag }} {{ field }}</td>
-        {% endfor %}
-    </tr>
-</div>
-{#<h2>Shopping List</h2>#}
-{#<ul>#}
-{#    {% for item in recipe.shoppinglist.items.all %}#}
-{#        <li>{{ item.quantity_required }} {{ item.product.unit }} of {{ item.product.name }}</li>#}
-{#    {% empty %}#}
-{#        <li>No items in the shopping list yet.</li>#}
-{#    {% endfor %}#}
-{#</ul>#}
+            <h3>Добави продукти</h3>
+            <form method="post">
+                {% csrf_token %}
+                {{ formset.management_form }}
+                {#    <table id="formset-container">#}
+                {% for form in formset.forms %}
+                    <tr class="form">
+                        {% for field in form %}
+                            {% if field.name != "id" and field.name != "DELETE" and field.name != "recipe" %}
+                                <td>
+                                    {{ field.errors }}
+                                    {{ field.label_tag }} {{ field }}
 
-{#{% if recipe.dish.day %}#}
-    <a href="{% url 'shopping_list' recipe.dish.meal.day.id %}">Списък</a>
-{#{% else %}#}
-{#    <p>Shopping list not available.</p>#}
-{#{% endif %}#}
+                                </td>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+                {#    </table>#}
+                <button type="submit">Добави продукти</button>
+            </form>
+
+            <div id="empty-form" style="display: none;">
+                <tr class="form-row">
+                    {% for field in formset.empty_form %}
+                        {% if field.name != "id" and field.name != "DELETE" and field.name != "recipe" %}
+                            <td>{{ field.label_tag }} {{ field }}</td>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+            </div>
+        </div>
+        <a href="{% url 'shopping_list' recipe.dish.meal.day.id %}">Списък</a>
 
 
-<a href="{% url 'recipe_list' recipe.dish.id %}">Назад към рецепти</a>
+        <a href="{% url 'recipe_list' recipe.dish.id %}">Назад към рецепти</a>
+
+    </div>
+</section>
 </body>
 </html>

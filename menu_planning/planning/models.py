@@ -1,9 +1,10 @@
 from django.db import models
 from django.urls import reverse
 
+
 # Model for Days of the Week
 class Day(models.Model):
-    name = models.CharField(max_length=10)  # e.g., "Monday", "Tuesday", ...
+    name = models.CharField(max_length=10)
 
     def __str__(self):
         return self.name
@@ -21,7 +22,7 @@ class Day(models.Model):
 # Model for Meals (Breakfast, Lunch, Dinner)
 class Meal(models.Model):
     day = models.ForeignKey(Day, on_delete=models.CASCADE, related_name='meals')
-    name = models.CharField(max_length=20)  # e.g., "Breakfast", "Lunch", "Dinner"
+    name = models.CharField(max_length=20)
 
     def __str__(self):
         return f"{self.name} on {self.day.name}"
@@ -34,7 +35,7 @@ class Meal(models.Model):
 class Dish(models.Model):
     meal = models.ForeignKey('Meal', on_delete=models.CASCADE, related_name='dishes')
     description = models.TextField(blank=True, null=True)
-    name = models.CharField(max_length=100)  # e.g., "Dish 1", "Dish 2", "Dish 3"
+    name = models.CharField(max_length=100)
 
     def __str__(self):
         return f"{self.name} for {self.meal.name}"
@@ -52,7 +53,7 @@ class Product(models.Model):
         default="гр.",
     )
     quantity_in_stock = models.DecimalField(max_digits=10, decimal_places=3, default=0)
-
+    calories_per_100g = models.DecimalField(max_digits=5, decimal_places=1, null=True, blank=True)  # Optional field
     def __str__(self):
         return f"{self.name} ({self.unit} {self.quantity_in_stock})"
 
@@ -78,6 +79,12 @@ class RecipeProduct(models.Model):
         choices=[("броя", "броя"), ("гр.", "гр.")],
         default="гр.",
     )
+
+    @property
+    def calories(self):
+        if self.product.calories_per_100g and self.unit == 'гр.':
+            return (self.quantity_required / 100) * self.product.calories_per_100g
+        return 0  # If calories or unit isn't set properly
 
     def __str__(self):
         return f"{self.quantity_required} {self.unit} of {self.product.name} for {self.recipe.name}"

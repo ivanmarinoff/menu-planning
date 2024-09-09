@@ -122,7 +122,30 @@ class RecipeDetailView(views.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['formset'] = RecipeProductFormSet(queryset=self.object.recipeproduct_set.all())
+        products = self.object.recipeproduct_set.all()
+
+        # Calculate total calories for the recipe
+        total_calories = 0
+        products_with_calories = []
+
+        for product in products:
+            # Calculate calories for each product
+            if product.product.calories_per_100g and product.unit == 'гр.':
+                calories = (product.quantity_required / 100) * product.product.calories_per_100g
+                calories = round(calories, 2)  # Round to two decimal places
+            else:
+                calories = 0
+
+            products_with_calories.append({
+                'product': product,
+                'calories': calories
+            })
+
+            total_calories += calories
+
+        context['formset'] = RecipeProductFormSet(queryset=products)
+        context['total_calories'] = total_calories
+        context['products_with_calories'] = products_with_calories
         return context
 
     def post(self, request, *args, **kwargs):
@@ -168,10 +191,19 @@ class RecipeDetailView(views.DetailView):
                 warehouse_product.save()
                 product.save()
 
+            # After saving products, recalculate total calories for the recipe
+            total_calories = sum(
+                (product.quantity_required / 100) * product.product.calories_per_100g
+                for product in self.object.recipeproduct_set.all()
+                if product.product.calories_per_100g and product.unit == 'гр.'
+            )
+
+            # Redirect with updated calorie data
             return redirect('recipe_detail', pk=self.object.pk)
 
         context = self.get_context_data(formset=formset)
         return self.render_to_response(context)
+
 
 
 class ShoppingListView(views.ListView):

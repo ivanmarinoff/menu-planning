@@ -18,7 +18,8 @@ class DishAdmin(admin.ModelAdmin):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['name', 'quantity_in_stock', 'unit']
+    list_display = ['name', 'quantity_in_stock', 'unit', 'calories_per_100g']
+    search_fields = ('name',)
 
 
 @admin.register(ShoppingListProduct)

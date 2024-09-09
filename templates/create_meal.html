@@ -1,11 +1,16 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static "style/style.css" %}"/>
     <title>Създайте ново ястие</title>
 </head>
 <body>
+<section id="index-headline">
+    <div class="index-message">
+        <div class="plant-card">
     <h1>Създайте ново ястие за {{ day.name }}</h1>
     <form method="post">
         {% csrf_token %}
@@ -13,5 +18,10 @@
         <button type="submit">Запис</button>
     </form>
     <a href="{% url 'menu' day.id %}">Отказ</a>
+
+    </div>
+    </div>
+
+</section>
 </body>
 </html>
