@@ -14,7 +14,7 @@
         <div class="plant-card">
 
             <h1>{{ recipe.name }}</h1>
-            <p>{{ recipe.description }}</p>
+            <h1>{{ recipe.description }}</h1>
 
             <h2>Необходими продукти</h2>
             <ul>
@@ -26,19 +26,14 @@
                         {% endif %}
                     </li>
                 {% endfor %}
-                {#    {% for rp in recipe.recipeproduct_set.all %}#}
-                {#        <li>{{ rp.quantity_required }} {{ rp.unit }} of {{ rp.product.name }}</li>#}
-                {#    {% empty %}#}
-                {#        <li>Няма продукти в листа за рецептите.</li>#}
-                {#    {% endfor %}#}
             </ul>
-            <p><strong>Total Calories for Recipe:</strong> {{ total_calories }} kcal</p>
+            <h1><strong>Total Calories for Recipe:</strong> {{ total_calories }} kcal</h1>
 
             <h3>Добави продукти</h3>
             <form method="post">
                 {% csrf_token %}
                 {{ formset.management_form }}
-                {#    <table id="formset-container">#}
+
                 {% for form in formset.forms %}
                     <tr class="form">
                         {% for field in form %}
@@ -52,8 +47,8 @@
                         {% endfor %}
                     </tr>
                 {% endfor %}
-                {#    </table>#}
-                <button type="submit">Добави продукти</button>
+                <br><br>
+                <button type="submit"><h1><span>Добави продукти</span></h1></button>
             </form>
 
             <div id="empty-form" style="display: none;">
@@ -66,11 +61,15 @@
                 </tr>
             </div>
         </div>
-        <a href="{% url 'shopping_list' recipe.dish.meal.day.id %}">Списък</a>
-
-
-        <a href="{% url 'recipe_list' recipe.dish.id %}">Назад към рецепти</a>
-
+    <button>
+        <h1>
+        <a href="{% url 'shopping_list' recipe.dish.meal.day.id %}">Списък</a></h1>
+</button>
+<button>
+        <h1>
+            <a href="{% url 'recipe_list' recipe.dish.id %}">Назад към рецепти</a>
+        </h1>
+</button>
     </div>
 </section>
 </body>

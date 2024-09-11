@@ -23,17 +23,17 @@
             </ul>
 
             <!-- Display the form for adding a new dish -->
-            <h2><form method="post">
+            <form method="post">
                 {% csrf_token %}
                 {{ form.as_p }}
-                <button type="submit">Добави ново ястие</button>
-            </form></h2>
+                <button type="submit"><h1><span>Добави ново ястие</span></h1></button>
+            </form>
 
 
         </div>
         <button>
             <h1>
-                <a href="{% url 'menu' meal.day.id %}"><span>Назад към меню</span></a>
+                <a href="{% url 'menu' meal.day.id %}">Назад към меню</a>
             </h1>
         </button>
     </div>
