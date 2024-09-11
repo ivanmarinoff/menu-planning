@@ -75,7 +75,18 @@ a {
     text-align: center;
     width: 30%
 }
+.index-message h1 {
+    color: #ffffff;
+    font-size: 120%;
 
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: 8px;
+    word-spacing: normal;
+    text-transform: uppercase;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    font-family: 'Abril Fatface', cursive;
+}
 
 .index-message h2 {
     color: #ffffff;

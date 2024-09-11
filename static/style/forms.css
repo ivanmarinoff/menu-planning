@@ -6,7 +6,7 @@
     width: 550px;
     height: auto;
     background: rgba(0, 0, 0, 0.27);
-    text-align: center:
+    text-align: center;
     padding: 10px;
     border-radius: 30px;
     border: 3px solid #6e8e4626;
@@ -118,10 +118,11 @@ label[for="terms"] > select{
 }
 
 .btn:hover{
-    box-shadow: 0 0 100px white;
-                0 0 50px white;
-                0 0 25px white;
-                0 0 5px white;
+     box-shadow:
+        0 0 100px white,
+        0 0 50px white,
+        0 0 25px white,
+        0 0 5px white;
 }
 
 .container {
