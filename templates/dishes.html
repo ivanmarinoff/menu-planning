@@ -1,43 +1,37 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static "style/style.css" %}"/>
+{% extends 'navbar.html' %}
+{% block header %}
+
     <title>Рецепта за {{ meal.name }}</title>
-</head>
-<body>
-<section id="index-headline">
-    <div class="index-message">
-        <div class="plant-card">
-            <h1><span>Ястие за {{ meal.name }}</span></h1>
-            <ul>
-                <h1>{% for dish in dishes %}
-                    <li>
-                        <a href="{% url 'recipe_list' pk=dish.id %}">{{ dish.name }}</a>
-                    </li>
-                {% empty %}
-                    <li>Няма налични рецепти за това ястие.</li>
-                {% endfor %}</h1>
-            </ul>
 
-            <!-- Display the form for adding a new dish -->
-            <form method="post">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit"><h1><span>Добави ново ястие</span></h1></button>
-            </form>
+    <section id="index-headline">
+        <div class="index-message">
+            <div class="plant-card">
+                <h1><span>Ястие за {{ meal.name }}</span></h1>
+                <ul>
+                    <h1>{% for dish in dishes %}
+                        <li>
+                            <a href="{% url 'recipe_list' pk=dish.id %}">{{ dish.name }}</a>
+                        </li>
+                    {% empty %}
+                        <li>Няма налични рецепти за това ястие.</li>
+                    {% endfor %}</h1>
+                </ul>
+
+                <!-- Display the form for adding a new dish -->
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit"><h1><span>Добави ново ястие</span></h1></button>
+                </form>
 
 
+            </div>
+            <button>
+                <h1>
+                    <a href="{% url 'menu' meal.day.id %}">Назад към меню</a>
+                </h1>
+            </button>
         </div>
-        <button>
-            <h1>
-                <a href="{% url 'menu' meal.day.id %}">Назад към меню</a>
-            </h1>
-        </button>
-    </div>
 
-</section>
-</body>
-</html>
+    </section>
+{% endblock header %}

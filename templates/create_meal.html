@@ -1,25 +1,20 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static "style/style.css" %}"/>
+{% extends 'navbar.html' %}
+{% block header %}
     <title>Създайте ново ястие</title>
-</head>
-<body>
+
 <section id="index-headline">
     <div class="index-message">
         <div class="plant-card">
-            <h1>Създайте ново ястие за {{ day.name }}</h1>
+            <h1>Създайте ново ястие за <br><br>{{ day.name }}</h1>
             <form method="post">
                 {% csrf_token %}
                 {{ form.as_p }}
-                <button type="submit"><h1>Запис</h1></button>
+                <br><button type="submit"><h1>Запис</h1></button>
             </form>
 
 
         </div>
+        <br>
         <button>
             <h1>
                 <a href="{% url 'menu' day.id %}">Назад</a>
@@ -28,5 +23,5 @@
     </div>
 
 </section>
-</body>
-</html>
+
+{% endblock header %}

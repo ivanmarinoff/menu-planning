@@ -10,6 +10,7 @@ class DayForm(forms.ModelForm):
     class Meta:
         model = Day
         fields = ['name']
+        labels = {'name': 'Ден'}
 
 
 class MealForm(forms.ModelForm):

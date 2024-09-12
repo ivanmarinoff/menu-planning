@@ -1,17 +1,20 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Navbar</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <title>menu planning</title>
+{#    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">#}
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+    <link rel="stylesheet" href="{% static "style/style.css" %}"/>
 </head>
 <body>
-<button>
-    <li>
-{#        <a href="{% url 'menu' meal.day.id %}" target="_blank">Menu</a>#}
-
-        <a href="{% url 'dishes' meal.id %}" target="_blank">Dishes</a>
-        <a href="{% url 'recipe_detail' pk=pk %}" target="_blank">Recipes</a>
-    </li>
-</button>
+            {% block header %}
+            {% endblock header %}
 </body>
 </html>

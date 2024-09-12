@@ -1,19 +1,12 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static "style/style.css" %}"/>
+{% extends 'navbar.html' %}
+{% block header %}
     <title>Меню за {{ day.name }}</title>
-</head>
-<body>
 <section id="index-headline">
     <div class="index-message">
         <div class="plant-card">
-            <h1>Меню за {{ day.name }}</h1>
+            <h1>Меню за {{ day.name }}</h1><br>
             <ul>
-                <h2>
+                <h1>
                     {% for meal in meals %}
                         <ol>
                             <a href="{% url 'dishes' meal.id %}"><span>{{ meal.name }}</span></a>
@@ -21,7 +14,7 @@
                     {% empty %}
                         <ol><span>Няма налични ястия за този ден.</span></ol>
                     {% endfor %}
-                </h2>
+                </h1>
             </ul>
             <br>
 <button>
@@ -38,5 +31,4 @@
 
 
 </section>
-</body>
-</html>
+{% endblock header %}

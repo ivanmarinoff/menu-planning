@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends 'navbar.html' %}
+{% block header %}
+
     <title>Ястия за {{ meal.name }}</title>
-</head>
-<body>
+
 <h1>Ястия за {{ meal.name }}</h1>
 
 
@@ -18,5 +15,5 @@
 
 
 <a href="{% url 'menu' meal.day.id %}">Назад към меню</a>
-</body>
-</html>
+
+{% endblock header %}

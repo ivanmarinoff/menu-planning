@@ -1,18 +1,8 @@
-{% load static %}
+{% extends 'navbar.html' %}
+{% block header %}
 
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static "style/style.css" %}"/>
-    <title>Calendar</title>
-</head>
 
-<html>
-<head>
-    <title>Седмичен календар</title>
 {#    <style>#}
 {#        .calendar {#}
 {#            display: flex;#}
@@ -33,10 +23,9 @@
 {#            background-color: #e9ecef;#}
 {#        }#}
 {#    </style>#}
-</head>
-<body>
+<section id="index-headline">
+{#    <div class="index-message">#}
 <div class="plant-card">
-    <div class="plant-header">
         <ul class="blog">
             {% for day in days %}
                 <div>
@@ -48,17 +37,10 @@
                 </div>
             {% endfor %}
         </ul>
-    </div>
+{#    </div>#}
 </div>
 
-
-{#<h1>Седмичен календар</h1>#}
-{##}
-{#<div class="calendar">#}
-{#    {% for day in days %}#}
-{#        <a class="day" href="{{ day.get_absolute_url }}">{{ day.name }}</a>#}
-{#    {% endfor %}#}
-{#</div>#}
+</section>
 <div class="index-message">
 <div id="index-headline">
 
@@ -67,6 +49,5 @@
     </a></h2></button>
 </div>
 </div>
-</body>
-{#<a href="{% url 'menu' pk=day.pk %}">{{ day.name }} </a>#}
-</html>
+
+{% endblock header %}

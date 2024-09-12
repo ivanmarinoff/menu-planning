@@ -1,41 +1,37 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static "style/style.css" %}"/>
+{% extends 'navbar.html' %}
+{% block header %}
     <title>Summary Shopping List</title>
-</head>
-<body>
-<section id="index-headline">
+
+    <section id="index-headline">
         <div class="index-message">
-    <div class="plant-card">
-    <h2>Summary Shopping List</h2>
+            <div class="plant-card">
+                <h2>Summary Shopping List</h2>
 
-    {% if summary %}
-        <ul>
-            {% for item in summary %}
-                <ol>
-                   <h1><span>{{ item.product__name }} - {{ item.total_quantity }} {{ item.product__unit }}</span></h1>
-                </ol>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <br>
-        <h4>Няма продукти за пазаруване.</h4>
-    {% endif %}
+                {% if summary %}
+                    <ul>
+                        {% for item in summary %}
+                            <ol>
+                                <h1>
+                                    <span>{{ item.product__name }} - {{ item.total_quantity }} {{ item.product__unit }}</span>
+                                </h1>
+                            </ol>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <br>
+                    <h4>Няма продукти за пазаруване.</h4>
+                {% endif %}
 
 
-</div>
+            </div>
             <br>
             <button>
                 <h1>
                     <a href="{% url 'home' %}">Назад към календар</a>
                 </h1>
             </button>
-</div>
+        </div>
 
-</section>
-</body>
-</html>
+    </section>
+
+{% endblock header %}
