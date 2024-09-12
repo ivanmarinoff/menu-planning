@@ -11,22 +11,29 @@
 <section id="index-headline">
         <div class="index-message">
     <div class="plant-card">
-    <h3>Summary Shopping List</h3>
+    <h2>Summary Shopping List</h2>
 
     {% if summary %}
         <ul>
             {% for item in summary %}
                 <ol>
-                   <h1><span>{{ item.total_quantity }} {{ item.product__unit }} - {{ item.product__name }}</span></h1>
+                   <h1><span>{{ item.product__name }} - {{ item.total_quantity }} {{ item.product__unit }}</span></h1>
                 </ol>
             {% endfor %}
         </ul>
     {% else %}
-        <p>No products in the shopping list.</p>
+        <br>
+        <h4>Няма продукти за пазаруване.</h4>
     {% endif %}
 
 
-</div><button><h2><a href="{% url 'home' %}">Back to Home</a></h2></button>
+</div>
+            <br>
+            <button>
+                <h1>
+                    <a href="{% url 'home' %}">Назад към календар</a>
+                </h1>
+            </button>
 </div>
 
 </section>

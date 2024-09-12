@@ -16,17 +16,17 @@
             <h1>{{ recipe.name }}</h1>
             <h1>{{ recipe.description }}</h1>
 
-            <h2>Необходими продукти</h2>
-            <ul>
-                {% for item in products_with_calories %}
+            <h1>Необходими продукти</h1>
+            <oli>
+                <h1>{% for item in products_with_calories %}
                     <li>
-                        {{ item.product.quantity_required }} {{ item.product.unit }} of {{ item.product.product.name }}
+                        {{ item.product.quantity_required }} {{ item.product.unit }} {{ item.product.product.name }}
                         {% if item.calories %}
-                            - Calories: {{ item.calories }} kcal
+                            <h4>- Calories: {{ item.calories }} kcal</h4>
                         {% endif %}
                     </li>
-                {% endfor %}
-            </ul>
+                {% endfor %}</h1>
+            </oli>
             <h1><strong>Total Calories for Recipe:</strong> {{ total_calories }} kcal</h1>
 
             <h3>Добави продукти</h3>

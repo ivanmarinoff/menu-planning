@@ -13,25 +13,29 @@
     <div class="plant-card">
 
     <h1>Shopping List за {{ day.name }}</h1>
-
+        <br>
     {% if shopping_lists %}
         {% for shopping_list in shopping_lists %}
-            <h2>Рецепта за: {{ shopping_list.recipe.name }}</h2>
-            <h1><ul>
+            <h1>Рецепта за: {{ shopping_list.recipe.name }}</h1>
+            <br>
+            <h1><ol>
                 {% for product in shopping_list.recipe.recipeproduct_set.all %}
                     <li>
-                        {{ product.quantity_required }} {{ product.unit }} of {{ product.product.name }}
-                    </li>
+                       <span>{{ product.product.name }}-{{ product.quantity_required }} {{ product.unit }}</span>
+                    </li><br>
                 {% endfor %}
-            </ul>
+            </ol>
             </h1>
         {% endfor %}
     {% else %}
         <p>No shopping list available for this day.</p>
     {% endif %}
-
-    <button><a href="{% url 'menu' day.id %}">Back to Menu</a></button>
 </div>
+            <button>
+                <h1>
+                <a href="{% url 'menu' day.id %}">Назад към меню</a>
+            </h1>
+            </button>
 </div>
 
 </section>

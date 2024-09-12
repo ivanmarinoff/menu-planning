@@ -11,21 +11,19 @@
 <section id="index-headline">
     <div class="index-message">
         <div class="plant-card">
-            <h2><span>Създайте ново ястие за {{ day.name }}</span></h2>
+            <h1>Създайте ново ястие за {{ day.name }}</h1>
             <form method="post">
                 {% csrf_token %}
                 {{ form.as_p }}
-
-                 <button type="submit"><h1><span>Запис</span></h1></button>
-
+                <button type="submit"><h1>Запис</h1></button>
             </form>
 
 
         </div>
         <button>
-            <h2>
+            <h1>
                 <a href="{% url 'menu' day.id %}">Назад</a>
-            </h2>
+            </h1>
         </button>
     </div>
 
