@@ -10,11 +10,11 @@
                 {% if summary %}
                     <ul>
                         {% for item in summary %}
-                            <ol>
-                                <h1>
+                            <h1>
+                                <oli>
                                     <span>{{ item.product__name }} - {{ item.total_quantity }} {{ item.product__unit }}</span>
-                                </h1>
-                            </ol>
+                                </oli>
+                            </h1>
                         {% endfor %}
                     </ul>
                 {% else %}

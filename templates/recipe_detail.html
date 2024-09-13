@@ -7,11 +7,11 @@
         <div class="index-message">
             <div class="plant-card">
 
-                <h1>{{ recipe.name }}</h1>
-                <h1>{{ recipe.description }}</h1>
+                <h5>Рецепта за {{ recipe.name }}</h5>
+{#                <h5>{{ recipe.description }}</h5>#}
 
-                <h1>Необходими продукти</h1>
-                <oli>
+                <h1><span>Необходими продукти</span></h1>
+                <ol>
                     <h1>{% for item in products_with_calories %}
                         <li>
                             {{ item.product.quantity_required }} {{ item.product.unit }} {{ item.product.product.name }}
@@ -20,10 +20,10 @@
                             {% endif %}
                         </li>
                     {% endfor %}</h1>
-                </oli>
-                <h1><strong>Total Calories for Recipe:</strong> {{ total_calories }} kcal</h1>
-
-                <h3>Добави продукти</h3>
+                </ol>
+                <h1><strong>Общо калории за рецептата:</strong> {{ total_calories }} kcal</h1>
+                <br><br>
+                <h1>Добави продукт</h1>
                 <form method="post">
                     {% csrf_token %}
                     {{ formset.management_form }}
@@ -42,7 +42,7 @@
                         </tr>
                     {% endfor %}
                     <br><br>
-                    <button type="submit"><h1><span>Добави продукти</span></h1></button>
+                    <button type="submit"><h1><span>Добави</span></h1></button>
                 </form>
 
                 <div id="empty-form" style="display: none;">

@@ -127,6 +127,19 @@ a {
     font-family: 'Abril Fatface', cursive;
 }
 
+.index-message h5 {
+    color: #ffffff;
+    font-size: 75%;
+
+    line-height: 2;
+    font-weight: 700;
+    letter-spacing: 6px;
+    word-spacing: normal;
+    text-transform: uppercase;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    font-family: 'Helvetica', sans-serif;
+}
+
 #catalogue>h1{
     text-align: center;
     color: #134062;
