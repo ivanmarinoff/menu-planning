@@ -24,9 +24,8 @@ class MealForm(forms.ModelForm):
 class DishForm(forms.ModelForm):
     class Meta:
         model = Dish
-        fields = ['name', 'description']
-        labels = {'name': 'Ястие',
-                  'description': 'Описание'}
+        fields = ['name']
+        labels = {'name': 'Ястие'}
 
 
 class RecipeForm(forms.ModelForm):

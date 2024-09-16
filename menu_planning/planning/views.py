@@ -30,6 +30,11 @@ class CreateMealView(views.CreateView):
     template_name = 'create_meal.html'
     fields = ['name']
 
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        form.fields['name'].label = 'Ястие'
+        return form
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['day'] = Day.objects.get(pk=self.kwargs['pk'])

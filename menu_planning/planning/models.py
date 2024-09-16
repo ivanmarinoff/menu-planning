@@ -62,7 +62,7 @@ class Product(models.Model):
 class Recipe(models.Model):
     dish = models.ForeignKey(Dish, on_delete=models.CASCADE, related_name='recipes')
     name = models.CharField(max_length=100)
-    description = models.TextField(blank=False, null=False, default="Recipe description")
+    description = models.TextField(blank=False, null=False)
     products = models.ManyToManyField(Product, through='RecipeProduct')
 
     def __str__(self):

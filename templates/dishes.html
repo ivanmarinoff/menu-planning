@@ -7,7 +7,7 @@
         <div class="index-message">
             <div class="plant-card">
                 <h1><span>Ястие за {{ meal.name }}</span></h1>
-                <ul>
+                <ol>
                     <h1>{% for dish in dishes %}
                         <li>
                             <a href="{% url 'recipe_list' pk=dish.id %}">{{ dish.name }}</a>
@@ -15,12 +15,13 @@
                     {% empty %}
                         <li>Няма налични рецепти за това ястие.</li>
                     {% endfor %}</h1>
-                </ul>
+                </ol>
 
                 <!-- Display the form for adding a new dish -->
                 <form method="post">
                     {% csrf_token %}
                     {{ form.as_p }}
+                    <br>
                     <button type="submit"><h1><span>Добави ново ястие</span></h1></button>
                 </form>
 

@@ -5,25 +5,24 @@
 <section id="index-headline">
     <div class="index-message">
         <div class="plant-card">
-    <h1>Рецепти за {{ dish.name }}</h1>
+    <h1>Рецепта за {{ dish.name }}</h1>
 
-    <ul>
+
     <h5>
         {% for recipe in recipes %}
-            <li>
-                <strong>{{ recipe.name }}</strong>:
-                {{ recipe.description }}<br>
+
+                <ol><h1>{{ recipe.name }}-{{ recipe.description }}</h1></ol><br>
                 <button>
                     <h1>
                     <a href="{% url 'recipe_detail' recipe.id %}"><span>Виж рецептата</span></a>
                     </h1>
                 </button>
-            </li>
+
         {% empty %}
-            <li>Няма налични рецепти за тази категория.</li>
+            <li>Няма налични рецепти за това ястие.</li>
         {% endfor %}
     </h5>
-    </ul>
+
 
     <!-- Form to add a new recipe -->
     <h4><span>Създай нова рецепта</span></h4>
