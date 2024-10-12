@@ -5,15 +5,17 @@
     <div class="index-message">
         <div class="plant-card">
             <h1>Меню за {{ day.name }}</h1><br>
-            <ol>
+
                 <h1>
-                    {% for meal in meals %}
-                            <a href="{% url 'dishes' meal.id %}"><span>{{ meal.name }}</span></a>
+                    <ol>
+                         {% for meal in meals %}
+                            <li><a href="{% url 'dishes' meal.id %}"><span>{{ meal.name }}</span></a></li>
                     {% empty %}
                         <span>Няма налични ястия за този ден.</span>
                     {% endfor %}
+                    </ol>
                 </h1>
-            </ol>
+
             <br>
 <button>
     <h1>
