@@ -23,6 +23,7 @@ body {
 .container {
     color: white;
     margin-top: 150px;
+    text-align: center;
 }
 
 button {

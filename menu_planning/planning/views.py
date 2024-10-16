@@ -13,13 +13,13 @@ from ..users.mixins import CustomLoginRequiredMixin, ErrorRedirectMixin
 User = get_user_model()
 
 
-class HomeView(views.ListView):
+class HomeView(views.ListView, CustomLoginRequiredMixin, ErrorRedirectMixin):
     model = Day
     template_name = 'index.html'
     context_object_name = 'days'
 
 
-class MenuView(views.DetailView):
+class MenuView(views.DetailView, CustomLoginRequiredMixin, ErrorRedirectMixin):
     model = Day
     template_name = 'menu.html'
     context_object_name = 'day'
@@ -34,7 +34,7 @@ class MenuView(views.DetailView):
         return reverse('menu', args=[pk])
 
 
-class CreateMealView(views.CreateView):
+class CreateMealView(views.CreateView, CustomLoginRequiredMixin, ErrorRedirectMixin):
     model = Meal
     template_name = 'create_meal.html'
     fields = ['name']
@@ -58,7 +58,7 @@ class CreateMealView(views.CreateView):
         return reverse('menu', args=[self.kwargs['pk']])
 
 
-class DishesView(views.DetailView):
+class DishesView(views.DetailView, CustomLoginRequiredMixin, ErrorRedirectMixin):
     model = Meal
     template_name = 'dishes.html'
     context_object_name = 'meal'
@@ -79,7 +79,7 @@ class DishesView(views.DetailView):
         return self.render_to_response(self.get_context_data(form=form))
 
 
-class DishCreateView(views.CreateView):
+class DishCreateView(views.CreateView, CustomLoginRequiredMixin, ErrorRedirectMixin):
     model = Dish
     template_name = 'dish_form.html'
     fields = ['name', 'description']
@@ -94,7 +94,7 @@ class DishCreateView(views.CreateView):
         return reverse('dishes', args=[meal_id], kwargs={'pk': meal_id})
 
 
-class DishUpdateView(views.UpdateView):
+class DishUpdateView(views.UpdateView, CustomLoginRequiredMixin, ErrorRedirectMixin):
     model = Dish
     template_name = 'dish_form.html'
     fields = ['name', 'description']
@@ -103,7 +103,7 @@ class DishUpdateView(views.UpdateView):
         return reverse('dishes', args=[self.object.meal.id], kwargs={'pk': self.object.meal.id})
 
 
-class RecipeListView(views.DetailView):
+class RecipeListView(views.DetailView, CustomLoginRequiredMixin, ErrorRedirectMixin):
     model = Dish
     template_name = 'recipe.html'
     context_object_name = 'dish'
@@ -129,7 +129,7 @@ class RecipeListView(views.DetailView):
         return self.render_to_response(context)
 
 
-class RecipeDetailView(views.DetailView):
+class RecipeDetailView(views.DetailView, CustomLoginRequiredMixin, ErrorRedirectMixin):
     model = Recipe
     template_name = 'recipe_detail.html'
     context_object_name = 'recipe'
@@ -219,7 +219,7 @@ class RecipeDetailView(views.DetailView):
         return self.render_to_response(context)
 
 
-class ShoppingListView(views.ListView):
+class ShoppingListView(views.ListView, CustomLoginRequiredMixin, ErrorRedirectMixin):
     model = ShoppingList
     template_name = 'shopping_list.html'
     context_object_name = 'shopping_lists'
@@ -235,7 +235,7 @@ class ShoppingListView(views.ListView):
         return context
 
 
-class SummaryShoppingListView(TemplateView):
+class SummaryShoppingListView(TemplateView, CustomLoginRequiredMixin, ErrorRedirectMixin):
     template_name = 'summary_shopping_list.html'
 
     def get_context_data(self, **kwargs):
