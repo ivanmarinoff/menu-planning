@@ -20,7 +20,6 @@
     <link rel="stylesheet" href="{% static "style/style.css" %}"/>
 
     <nav class="navbar navbar-expand-sm flex-row-reverse" id="navbar">
-        {% for user in users %}
         {% if user.is_authenticated %}
             <ul class="navbar-nav px-3 flex-row-reverse">
             <li class="nav-item text-nowrap">
@@ -42,7 +41,7 @@
             </li>
         </ul>
         {% endif %}
-        {% endfor %}
+
     </nav>
 </head>
 <body>
