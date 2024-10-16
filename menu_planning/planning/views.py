@@ -1,11 +1,16 @@
+from django.contrib.auth import get_user_model
 from django.db.models import Sum
 from django.shortcuts import redirect, get_object_or_404, render
 from django.urls import reverse
 from django.views.generic import TemplateView
 
 from .models import Day, Meal, Dish, ShoppingList, Recipe, ShoppingListProduct
-from .forms import DishForm, RecipeForm, RecipeProductFormSet, ShoppingListProductForm
+from .forms import DishForm, RecipeForm, RecipeProductFormSet
 from django.views import generic as views
+
+from ..users.mixins import CustomLoginRequiredMixin, ErrorRedirectMixin
+
+User = get_user_model()
 
 
 class HomeView(views.ListView):
@@ -23,6 +28,10 @@ class MenuView(views.DetailView):
         context = super().get_context_data(**kwargs)
         context['meals'] = self.object.meals.all()
         return context
+
+    @staticmethod
+    def get_success_url(self, pk):
+        return reverse('menu', args=[pk])
 
 
 class CreateMealView(views.CreateView):
@@ -82,7 +91,7 @@ class DishCreateView(views.CreateView):
 
     def get_success_url(self):
         meal_id = self.kwargs.get('meal_id')
-        return reverse('dishes', args=[meal_id])
+        return reverse('dishes', args=[meal_id], kwargs={'pk': meal_id})
 
 
 class DishUpdateView(views.UpdateView):
@@ -91,7 +100,7 @@ class DishUpdateView(views.UpdateView):
     fields = ['name', 'description']
 
     def get_success_url(self):
-        return reverse('dishes', args=[self.object.meal.id])
+        return reverse('dishes', args=[self.object.meal.id], kwargs={'pk': self.object.meal.id})
 
 
 class RecipeListView(views.DetailView):
@@ -114,7 +123,7 @@ class RecipeListView(views.DetailView):
             recipe.dish = self.object
             recipe.save()
 
-            return redirect(reverse('recipe_detail', args=[recipe.id]))
+            return redirect(reverse('recipe_detail', args=[recipe.id]), kwargs={'pk': recipe.id})
 
         context = self.get_context_data(form=form)
         return self.render_to_response(context)
@@ -210,7 +219,6 @@ class RecipeDetailView(views.DetailView):
         return self.render_to_response(context)
 
 
-
 class ShoppingListView(views.ListView):
     model = ShoppingList
     template_name = 'shopping_list.html'
@@ -218,7 +226,7 @@ class ShoppingListView(views.ListView):
 
     def get_queryset(self):
         day_id = self.kwargs.get('day_id')
-        return ShoppingList.objects.filter(recipe__dish__meal__day_id=day_id)
+        return ShoppingList.objects.filter(recipe__dish__meal__day_id=day_id )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -243,4 +251,3 @@ class SummaryShoppingListView(TemplateView):
 
         context['summary'] = summary
         return context
-

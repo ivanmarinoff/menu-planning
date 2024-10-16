@@ -7,14 +7,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="keywords" content="">
     <meta name="description" content="">
+    <meta name="csrf-token" content="{{ csrf_token }}">
+    <!-- Bootstrap CDN -->
+    <link href="{% static '/css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- Custom styles -->
+    {#    <link href="{% static '/css/landing.css' %}" rel="stylesheet" type="text/css">#}
+    <script src="{% static '/js/bootstrap.bundle.min.js' %}"></script>
 
     <title>menu planning</title>
-{#    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">#}
+    {#    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">#}
     <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
     <link rel="stylesheet" href="{% static "style/style.css" %}"/>
+
+    <nav class="navbar navbar-expand-sm flex-row-reverse" id="navbar">
+        {% for user in users %}
+        {% if user.is_authenticated %}
+            <ul class="navbar-nav px-3 flex-row-reverse">
+            <li class="nav-item text-nowrap">
+                <h1 class="nav-link active"><a href="{% url 'logout' %}"><i
+                        class="fas fa-sign-out-alt nav-icon"></i>Sign out</a></h1>
+            </li>
+        </ul>
+        {% else %}
+        <ul class="navbar-nav">
+            <li class="nav-item align-middle">
+                <a class="nav-link" href="{% url 'login' %}" id="log-in">
+                    Log In
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'register' %}" id="sign-up">
+                    <button>Sign Up</button>
+                </a>
+            </li>
+        </ul>
+        {% endif %}
+        {% endfor %}
+    </nav>
 </head>
 <body>
-            {% block header %}
-            {% endblock header %}
+{% block header %}
+{% endblock header %}
 </body>
 </html>
