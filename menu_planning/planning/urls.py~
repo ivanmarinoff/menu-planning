@@ -3,7 +3,7 @@ from ..users.views import RegisterUserView, LoginUserView, LogoutUserView, Landi
 from . import views
 
 urlpatterns = [
-    path('', LandingView.as_view(), name='landing'),
+    path('', views.LandingView.as_view(), name='landing'),
     path('home/', views.HomeView.as_view(), name='home'),
     path('menu/<int:pk>/', views.MenuView.as_view(), name='menu'),
     path('meal/<int:pk>/dishes/', views.DishesView.as_view(), name='dishes'),

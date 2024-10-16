@@ -73,7 +73,7 @@ class OnlyAnonymousMixin(AccessMixin):
 
 
 class LandingView(TemplateView):
-    template_name = "index.html"
+    template_name = "landing.html"
 
 
 class RegisterUserView(OnlyAnonymousMixin, views.CreateView):
