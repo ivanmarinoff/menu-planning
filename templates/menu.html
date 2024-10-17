@@ -28,6 +28,13 @@
         <button>
             <h1><a href="{% url 'home' %}">Назад към календар</a></h1>
         </button>
+        <br>
+        <button>
+            <h1>
+                <a href="{% url 'delete_menu' day.id %}"> Изтрий</a>
+            </h1>
+        </button>
+
     </div>
 
 <link rel="stylesheet" href="{% static "style/style.css" %}"/>

@@ -11,13 +11,22 @@ class CustomLoginRequiredMixin(LoginRequiredMixin):
     login_url = reverse_lazy('login')  # Use reverse lookup for login URL
 
     def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated or request.user != self.get_user(request, *args, **kwargs):
+        # Allow access if the user is a superuser
+        if request.user.is_superuser:
+            return super().dispatch(request, *args, **kwargs)
+
+        # Check if the user is authenticated and matches the expected pk
+        if not request.user.is_authenticated:
             return self.handle_no_permission()
-        # elif not request.user.is_active:
-        #     return self.handle_no_permission()
-        elif request.user.pk != kwargs.get('pk'):
-            # Optionally, you can raise Http404 or redirect to a different page
+
+        # Allow access if pk is not in the URL kwargs (some views may not require pk checking)
+        if 'pk' not in kwargs:
+            return super().dispatch(request, *args, **kwargs)
+
+        # Restrict access if the user's pk does not match
+        if request.user.pk != kwargs.get('pk'):
             raise Http404("You don't have permission to access this page.")
+
         return super().dispatch(request, *args, **kwargs)
 
     def handle_no_permission(self):

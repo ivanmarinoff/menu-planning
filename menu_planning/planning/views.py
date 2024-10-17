@@ -13,7 +13,7 @@ from ..users.mixins import CustomLoginRequiredMixin, ErrorRedirectMixin
 User = get_user_model()
 
 
-class HomeView(CustomLoginRequiredMixin, ErrorRedirectMixin, views.ListView):
+class HomeView(ErrorRedirectMixin, views.ListView):
     model = Day
     template_name = 'index.html'
     context_object_name = 'days'
@@ -226,7 +226,7 @@ class ShoppingListView(CustomLoginRequiredMixin, ErrorRedirectMixin, views.ListV
 
     def get_queryset(self):
         day_id = self.kwargs.get('day_id')
-        return ShoppingList.objects.filter(recipe__dish__meal__day_id=day_id )
+        return ShoppingList.objects.filter(recipe__dish__meal__day_id=day_id)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -251,3 +251,33 @@ class SummaryShoppingListView(CustomLoginRequiredMixin, ErrorRedirectMixin, Temp
 
         context['summary'] = summary
         return context
+
+
+class DeleteMenuView(CustomLoginRequiredMixin, ErrorRedirectMixin, views.DeleteView):
+    model = Day
+    template_name = 'confirm_delete.html'  # Add a template for confirmation
+    context_object_name = 'menu'
+
+    def get_success_url(self):
+        # Redirect to home or some other page after the menu is deleted
+        return reverse('home')
+
+
+class DeleteMealView(CustomLoginRequiredMixin, ErrorRedirectMixin, views.DeleteView):
+    model = Meal
+    template_name = 'confirm_delete.html'  # Add a template for confirmation
+    context_object_name = 'meal'
+
+    def get_success_url(self):
+        # Redirect to the menu page after meal deletion
+        return reverse('menu', args=[self.object.day.id])
+
+
+class DeleteRecipeView(CustomLoginRequiredMixin, ErrorRedirectMixin, views.DeleteView):
+    model = Recipe
+    template_name = 'confirm_delete.html'  # Add a template for confirmation
+    context_object_name = 'recipe'
+
+    def get_success_url(self):
+        # Redirect to the dishes page after recipe deletion
+        return reverse('dishes', args=[self.object.dish.meal.id])
