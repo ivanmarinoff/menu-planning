@@ -15,6 +15,7 @@ body {
 }
 
 .nav-link {
+    display: inline;
     color: white;
     font-family: 'Rubik', sans-serif;
     font-size: 15px;
@@ -27,9 +28,9 @@ body {
 }
 
 button {
-    color: black;
+    color: white;
     padding: 5px 25px;
-    background-color: white;
+    background-color: inherit;
     border: none;
     border-radius: 50px;
     cursor: pointer;

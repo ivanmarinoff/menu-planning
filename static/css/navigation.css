@@ -73,16 +73,16 @@ nav a {
     margin: 0 0.5em;
     text-transform: uppercase;
     font-size: 20px;
-    border-top: 1px solid #79A148;
+    /*border-top: 1px solid #79A148;*/
     padding: 5px 10px 5px 10px;
 
 }
 
 
-nav a:hover{
-    color:#79A148;
+/*nav a:hover{*/
+/*    color:#79A148;*/
 
-}
+/*}*/
 
 
 

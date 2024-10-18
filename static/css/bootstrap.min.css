@@ -3879,7 +3879,7 @@ textarea.form-control-lg {
 }
 
 .nav-link {
-    display: block;
+    display: inline;
     padding: .5rem 1rem;
     text-decoration: none;
     transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out
@@ -11049,5 +11049,3 @@ textarea.form-control-lg {
         display: none !important
     }
 }
-
-/*# sourceMappingURL=bootstrap.min.css.map */
