@@ -21,7 +21,7 @@ class Day(models.Model):
 
 # Model for Meals (Breakfast, Lunch, Dinner)
 class Meal(models.Model):
-    day = models.ForeignKey(Day, on_delete=models.CASCADE, related_name='meals')
+    day = models.ForeignKey(Day, on_delete=models.PROTECT, related_name='meals')
     name = models.CharField(max_length=20)
 
     def __str__(self):

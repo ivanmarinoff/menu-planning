@@ -33,7 +33,13 @@
                     <a href="{% url 'menu' meal.day.id %}">Назад към меню</a>
                 </h1>
             </button>
+        <br>
+        <button>
+            <h1>
+                <a href="{% url 'delete_recipe' meal.id %}"> Изтрий</a>
+            </h1>
+        </button>
         </div>
-<link rel="stylesheet" href="{% static "style/style.css" %}"/>
+<link rel="stylesheet" href="{% static "css/style.css" %}"/>
     </section>
 {% endblock header %}

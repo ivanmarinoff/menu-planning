@@ -13,7 +13,7 @@ from ..users.mixins import CustomLoginRequiredMixin, ErrorRedirectMixin
 User = get_user_model()
 
 
-class HomeView(ErrorRedirectMixin, views.ListView):
+class HomeView(CustomLoginRequiredMixin, ErrorRedirectMixin, views.ListView):
     model = Day
     template_name = 'index.html'
     context_object_name = 'days'
@@ -254,22 +254,34 @@ class SummaryShoppingListView(CustomLoginRequiredMixin, ErrorRedirectMixin, Temp
 
 
 class DeleteMenuView(CustomLoginRequiredMixin, ErrorRedirectMixin, views.DeleteView):
-    model = Day
-    template_name = 'confirm_delete.html'  # Add a template for confirmation
+    model = Meal
+    template_name = 'confirm_delete.html'
     context_object_name = 'menu'
 
+    def delete(self, request, *args, **kwargs):
+        day = self.get_object()
+        menu = day.menu.filter(day=day)  # Get all related meals
+        menu.delete(menu)  # Delete all meals associated with the day
+
+        return redirect('home')  # Redirect to the home page after deletion
+
     def get_success_url(self):
-        # Redirect to home or some other page after the menu is deleted
         return reverse('home')
 
 
 class DeleteMealView(CustomLoginRequiredMixin, ErrorRedirectMixin, views.DeleteView):
     model = Meal
-    template_name = 'confirm_delete.html'  # Add a template for confirmation
+    template_name = 'confirm_delete.html'
     context_object_name = 'meal'
 
+    def delete(self, request, *args, **kwargs):
+        meal = self.get_object()
+        day = meal.day  # Keep the reference to the related Day
+        meal.delete()  # Only delete the Meal, not the Day
+        return redirect('menu', pk=day.id)  # Redirect to the menu page of that Day
+
     def get_success_url(self):
-        # Redirect to the menu page after meal deletion
+        # Redirect to the menu page of the related Day after meal deletion
         return reverse('menu', args=[self.object.day.id])
 
 

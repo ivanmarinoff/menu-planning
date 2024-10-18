@@ -68,11 +68,11 @@ UserModel = get_user_model()
 class OnlyAnonymousMixin(AccessMixin):
     def dispatch(self, request, *args, **kwargs):
         if self.request.user.is_authenticated:
-            return redirect('dashboard', kwargs={'pk': request.user.pk})
+            return redirect('home')
         return super().dispatch(request, *args, **kwargs)
 
 
-class LandingView(TemplateView):
+class LandingView(OnlyAnonymousMixin, TemplateView):
     template_name = "landing.html"
 
 
