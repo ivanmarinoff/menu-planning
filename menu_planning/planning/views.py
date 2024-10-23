@@ -272,7 +272,7 @@ class SummaryShoppingListView(CustomLoginRequiredMixin, ErrorRedirectMixin, Temp
 
 class DeleteMealView(CustomLoginRequiredMixin, ErrorRedirectMixin, views.DeleteView):
     model = Meal
-    template_name = 'confirm_delete.html'
+    template_name = 'menu_delete.html'
     context_object_name = 'meal'
 
     def delete(self, request, *args, **kwargs):
@@ -285,10 +285,24 @@ class DeleteMealView(CustomLoginRequiredMixin, ErrorRedirectMixin, views.DeleteV
     def get_success_url(self):
         return reverse('menu', args=[self.object.day.id])
 
+class DeleteDishView(CustomLoginRequiredMixin, ErrorRedirectMixin, views.DeleteView):
+    model = Dish
+    template_name = 'dish_delete.html'
+    context_object_name = 'dish'
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()  # Fetch the Meal object
+        success_url = self.get_success_url()  # Get the redirect URL
+        self.object.delete()  # Delete the meal
+        return redirect(success_url)  # Redirect after successful deletion
+
+    def get_success_url(self):
+        return reverse('menu', args=[self.object.id])
+
 
 class DeleteRecipeView(CustomLoginRequiredMixin, ErrorRedirectMixin, views.DeleteView):
     model = Recipe
-    template_name = 'confirm_delete.html'  # Add a template for confirmation
+    template_name = 'recipe_delete.html'  # Add a template for confirmation
     context_object_name = 'recipe'
 
     def get_success_url(self):

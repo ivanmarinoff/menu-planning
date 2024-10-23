@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import DeleteRecipeView, DeleteMealView
+from .views import DeleteRecipeView, DeleteMealView, DeleteDishView
 from ..users.views import RegisterUserView, LoginUserView, LogoutUserView, LandingView
 from . import views
 
@@ -19,7 +19,7 @@ urlpatterns = [
     path('register/', RegisterUserView.as_view(), name='register'),
     path('login/', LoginUserView.as_view(), name='login'),
     path('logout/', LogoutUserView.as_view(), name='logout'),
-    # path('menu/<int:pk>/delete/', DeleteMenuView.as_view(), name='delete_menu'),
+    path('dish/<int:pk>/delete/', DeleteDishView.as_view(), name='delete_dish'),
     path('meal/<int:pk>/delete/', DeleteMealView.as_view(), name='delete_meal'),
     path('recipe/<int:pk>/delete/', DeleteRecipeView.as_view(), name='delete_recipe'),
 ]

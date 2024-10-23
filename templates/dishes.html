@@ -35,9 +35,15 @@
             </button>
         <br>
         <button>
+            {% for dish in dishes %}
+            <li>
+                {{ dish.name }}
+            </li>
             <h1>
-                <a href="{% url 'delete_recipe' meal.id %}"> Изтрий</a>
+                <a href="{% url 'delete_dish' dish.id %}"> Изтрий</a>
             </h1>
+            {% empty %}
+            {% endfor %}
         </button>
         </div>
 

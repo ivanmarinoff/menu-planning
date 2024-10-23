@@ -41,6 +41,13 @@
         <a href="{% url 'dishes' dish.meal.id %}">Назад към ястия</a>
     </h1>
     </button>
+    {% for recipe in recipes %}
+        <li>{{ recipe.name }}</li>
+        <h1>
+            <a href="{% url 'delete_recipe' recipe.id %}">Изтрии рецептата</a>
+        </h1>
+
+    {% endfor %}
     </div>
 
 </section>
