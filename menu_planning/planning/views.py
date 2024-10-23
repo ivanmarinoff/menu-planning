@@ -26,7 +26,8 @@ class MenuView(CustomLoginRequiredMixin, ErrorRedirectMixin, views.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['meals'] = self.object.meals.all()
+        # Ensure you have meals in the context
+        context['meals'] = Meal.objects.filter(day=self.object)
         return context
 
     @staticmethod
@@ -253,20 +254,20 @@ class SummaryShoppingListView(CustomLoginRequiredMixin, ErrorRedirectMixin, Temp
         return context
 
 
-class DeleteMenuView(CustomLoginRequiredMixin, ErrorRedirectMixin, views.DeleteView):
-    model = Meal
-    template_name = 'confirm_delete.html'
-    context_object_name = 'menu'
-
-    def delete(self, request, *args, **kwargs):
-        day = self.get_object()
-        menu = day.menu.filter(day=day)  # Get all related meals
-        menu.delete(menu)  # Delete all meals associated with the day
-
-        return redirect('home')  # Redirect to the home page after deletion
-
-    def get_success_url(self):
-        return reverse('home')
+# class DeleteMenuView(CustomLoginRequiredMixin, ErrorRedirectMixin, views.DeleteView):
+#     model = Meal
+#     template_name = 'confirm_delete.html'
+#     context_object_name = 'menu'
+#
+#     def delete(self, request, *args, **kwargs):
+#         day = self.get_object()
+#         meals = day.meals.all()  # Get all related meals
+#         meals.delete()  # Delete all meals associated with the day
+#
+#         return redirect('home')  # Redirect to the home page after deletion
+#
+#     def get_success_url(self):
+#         return reverse('home')
 
 
 class DeleteMealView(CustomLoginRequiredMixin, ErrorRedirectMixin, views.DeleteView):
@@ -275,13 +276,13 @@ class DeleteMealView(CustomLoginRequiredMixin, ErrorRedirectMixin, views.DeleteV
     context_object_name = 'meal'
 
     def delete(self, request, *args, **kwargs):
-        meal = self.get_object()
-        day = meal.day  # Keep the reference to the related Day
-        meal.delete()  # Only delete the Meal, not the Day
-        return redirect('menu', pk=day.id)  # Redirect to the menu page of that Day
+        self.object = self.get_object()  # Fetch the Meal object
+        day = self.object.day  # Keep the reference to the related Day
+        success_url = self.get_success_url()  # Get the redirect URL
+        self.object.delete()  # Delete the meal
+        return redirect(success_url)  # Redirect after successful deletion
 
     def get_success_url(self):
-        # Redirect to the menu page of the related Day after meal deletion
         return reverse('menu', args=[self.object.day.id])
 
 
