@@ -1,0 +1,23 @@
+name: Schedule for GET requests
+
+on:
+  schedule:
+     # Run every 15 minutes between 08:00 and 22:00 +3 UTC mon-fri
+    - cron: '*/18 5-18 * * 1-5'
+  workflow_dispatch:
+
+jobs:
+  keep-it-alive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Keep WebApp alive
+        run: |
+          for i in {1..2}
+          do
+            echo "Execute first GET request"
+            response=$(curl -sS https://menu-planning-calories.onrender.com/)
+            # response=$(curl -sS https://menu-planning-calories.onrender.com/)
+            echo "Wait 300 seconds"
+            sleep 300
+            echo "GET Request operation was successful"
+          done
