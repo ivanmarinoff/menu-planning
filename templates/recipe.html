@@ -3,53 +3,51 @@
 {% block header %}
     <title>Рецепти за {{ dish.name }}</title>
 
-<section id="index-headline">
-    <div class="index-message">
-        <div class="plant-card">
-    <h1>Рецепта за {{ dish.name }}</h1>
+    <section id="index-headline">
+        <div class="index-message">
+            <div class="plant-card">
+                <h1>Рецепта за {{ dish.name }}</h1>
 
 
-    <h5>
-        {% for recipe in recipes %}
+                <h5>
+                    {% for recipe in recipes %}
 
-                <ol><h1>{{ recipe.name }}-{{ recipe.description }}</h1></ol><br>
-                <button>
-                    <h1>
-                    <a href="{% url 'recipe_detail' recipe.id %}"><span>Виж рецептата</span></a>
-                    </h1>
-                </button>
+                        <ol><h1>{{ recipe.name }}-{{ recipe.description }}</h1></ol><br>
+                        <button>
+                            <h1>
+                                <a href="{% url 'recipe_detail' recipe.id %}"><span>Виж рецептата</span></a>
+                            </h1>
+                        </button>
+                    {% empty %}
+                        <li>Няма налични рецепти за това ястие.</li>
+                    {% endfor %}
+                </h5>
+                {% for recipe in recipes %}
 
-        {% empty %}
-            <li>Няма налични рецепти за това ястие.</li>
-        {% endfor %}
-    </h5>
-
-
-    <!-- Form to add a new recipe -->
-    <h4><span>Създай нова рецепта</span></h4>
-    <form method="post" action="{% url 'recipe_list' dish.id %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit"><h1><span>Добави рецепта</span></h1></button>
-    </form>
+                    <button>
+                        <h1>
+                            <a href="{% url 'delete_recipe' recipe.id %}">Изтрии {{ recipe.name }}</a>
+                        </h1>
+                    </button>
+                {% endfor %}
 
 
+                <!-- Form to add a new recipe -->
+                <h4><span>Създай нова рецепта</span></h4>
+                <form method="post" action="{% url 'recipe_list' dish.id %}">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit"><h1><span>Добави рецепта</span></h1></button>
+                </form>
+            </div>
+            <button>
+                <h1>
+                    <a href="{% url 'dishes' dish.meal.id %}">Назад към ястия</a>
+                </h1>
+            </button>
 
-    </div>
-    <button>
-    <h1>
-        <a href="{% url 'dishes' dish.meal.id %}">Назад към ястия</a>
-    </h1>
-    </button>
-    {% for recipe in recipes %}
-        <li>{{ recipe.name }}</li>
-        <h1>
-            <a href="{% url 'delete_recipe' recipe.id %}">Изтрии рецептата</a>
-        </h1>
+        </div>
 
-    {% endfor %}
-    </div>
-
-</section>
+    </section>
 
 {% endblock header %}

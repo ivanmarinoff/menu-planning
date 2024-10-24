@@ -20,9 +20,17 @@
             <br>
 <button>
     <h1>
-        <a href="{% url 'create_meal' day.id %}">Добави хранене</a>
+        <a href="{% url 'create_meal' day.id %}">Добави меню</a>
     </h1>
 </button>
+
+    {% for meal in meals %}
+        <h1>
+    <button><a href="{% url 'delete_meal' pk=meal.id %}">Изтрий {{ meal.name }}</a></button>
+        {% empty %}
+        </h1>
+{% endfor %}
+
         </div>
         <br>
         <button>
@@ -34,10 +42,7 @@
 {#                <a href="{% url 'delete_meal' pk=meal.id %}"> Изтрий</a>#}
 {#            </h1>#}
 {#        </button>#}
-    {% for meal in meals %}
-    <p>Meal ID: {{ meal.name }}</p>  <!-- This should display the correct ID -->
-    <a href="{% url 'delete_meal' pk=meal.id %}">Delete</a>
-{% endfor %}
+
 
     </div>
 

@@ -25,6 +25,11 @@
                     <br>
                     <button type="submit"><h1><span>Добави ново ястие</span></h1></button>
                 </form>
+                {% for dish in dishes %}
+                    <h1>
+                        <button><a href="{% url 'delete_dish' dish.id %}"> Изтрий {{ dish.name }}</a></button>
+                        {% empty %}</h1>
+                {% endfor %}
 
 
             </div>
@@ -33,18 +38,6 @@
                     <a href="{% url 'menu' meal.day.id %}">Назад към меню</a>
                 </h1>
             </button>
-        <br>
-        <button>
-            {% for dish in dishes %}
-            <li>
-                {{ dish.name }}
-            </li>
-            <h1>
-                <a href="{% url 'delete_dish' dish.id %}"> Изтрий</a>
-            </h1>
-            {% empty %}
-            {% endfor %}
-        </button>
         </div>
 
     </section>
