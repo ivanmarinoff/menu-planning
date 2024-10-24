@@ -7,11 +7,11 @@
     <section id="index-headline">
         <div class="index-message">
             <div class="plant-card">
-                <h1><span>Ястие за {{ meal.name }}</span></h1>
+                <h6><span>Ястие за {{ meal.name }}</span></h6>
                 <ol>
                     <h1>{% for dish in dishes %}
                         <li>
-                            <a href="{% url 'recipe_list' pk=dish.id %}">{{ dish.name }}</a>
+                            <a href="{% url 'recipe_list' pk=dish.id %}"><span>{{ dish.name }}</span></a>
                         </li>
                     {% empty %}
                         <li>Няма налични ястия.</li>
@@ -27,7 +27,7 @@
                 </form>
                 {% for dish in dishes %}
                     <h1>
-                        <button><a href="{% url 'delete_dish' dish.id %}"> Изтрий {{ dish.name }}</a></button>
+                        <button><a href="{% url 'delete_dish' dish.id %}"><span>Изтрий {{ dish.name }}</span></a></button>
                         {% empty %}</h1>
                 {% endfor %}
 
@@ -35,7 +35,7 @@
             </div>
             <button>
                 <h1>
-                    <a href="{% url 'menu' meal.day.id %}">Назад към меню</a>
+                    <a href="{% url 'menu' meal.day.id %}"><span>Назад към меню</span></a>
                 </h1>
             </button>
         </div>

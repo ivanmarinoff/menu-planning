@@ -20,13 +20,13 @@
             <br>
 <button>
     <h1>
-        <a href="{% url 'create_meal' day.id %}">Добави меню</a>
+        <a href="{% url 'create_meal' day.id %}"><span>Добави меню</span></a>
     </h1>
 </button>
-
+            <br><br>
     {% for meal in meals %}
         <h1>
-    <button><a href="{% url 'delete_meal' pk=meal.id %}">Изтрий {{ meal.name }}</a></button>
+    <button><a href="{% url 'delete_meal' pk=meal.id %}"><span>Изтрий {{ meal.name }}</span></a></button>
         {% empty %}
         </h1>
 {% endfor %}
@@ -34,7 +34,7 @@
         </div>
         <br>
         <button>
-            <h1><a href="{% url 'home' %}">Назад към календар</a></h1>
+            <h1><a href="{% url 'home' %}"><span>Назад към календар</span></a></h1>
         </button>
         <br>
 {#        <button>#}

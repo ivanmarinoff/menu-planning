@@ -1,18 +1,13 @@
 {% extends 'navbar.html' %}
 {% load static %}
 {% block header %}
-    <title>Рецепти за {{ dish.name }}</title>
-
     <section id="index-headline">
         <div class="index-message">
             <div class="plant-card">
-                <h1>Рецепта за {{ dish.name }}</h1>
-
-
+                <h1>Рецепта за <span>{{ dish.name }}</span></h1>
                 <h5>
                     {% for recipe in recipes %}
-
-                        <ol><h1>{{ recipe.name }}-{{ recipe.description }}</h1></ol><br>
+                        <ol><em>{{ recipe.name }}-{{ recipe.description }}</em></ol><br>
                         <button>
                             <h1>
                                 <a href="{% url 'recipe_detail' recipe.id %}"><span>Виж рецептата</span></a>
@@ -22,18 +17,17 @@
                         <li>Няма налични рецепти за това ястие.</li>
                     {% endfor %}
                 </h5>
-                {% for recipe in recipes %}
-
-                    <button>
-                        <h1>
-                            <a href="{% url 'delete_recipe' recipe.id %}">Изтрии {{ recipe.name }}</a>
-                        </h1>
-                    </button>
-                {% endfor %}
+{#                {% for recipe in recipes %}#}
+{#                    <button>#}
+{#                        <h1>#}
+{#                            <a href="{% url 'delete_recipe' recipe.id %}">Изтрии {{ recipe.name }}</a>#}
+{#                        </h1>#}
+{#                    </button>#}
+{#                {% endfor %}#}
 
 
                 <!-- Form to add a new recipe -->
-                <h4><span>Създай нова рецепта</span></h4>
+                <h5><span>Създай нова рецепта</span></h5>
                 <form method="post" action="{% url 'recipe_list' dish.id %}">
                     {% csrf_token %}
                     {{ form.as_p }}
@@ -42,12 +36,10 @@
             </div>
             <button>
                 <h1>
-                    <a href="{% url 'dishes' dish.meal.id %}">Назад към ястия</a>
+                    <a href="{% url 'dishes' dish.meal.id %}"><span>Назад към ястия</span></a>
                 </h1>
             </button>
-
         </div>
-
     </section>
 
 {% endblock header %}

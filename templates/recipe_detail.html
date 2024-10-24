@@ -13,16 +13,16 @@
 
                 <h1><span>Необходими продукти</span></h1>
                 <ol>
-                    <h1>{% for item in products_with_calories %}
+                    <h6>{% for item in products_with_calories %}
                         <li>
                             {{ item.product.quantity_required }} {{ item.product.unit }} {{ item.product.product.name }}
                             {% if item.calories %}
                                 <h4>- Calories: {{ item.calories }} kcal</h4>
                             {% endif %}
                         </li>
-                    {% endfor %}</h1>
+                    {% endfor %}</h6>
                 </ol>
-                <h1><strong>Общо калории за рецептата:</strong> {{ total_calories }} kcal</h1>
+                <h5><strong>Общо калории за рецептата:</strong> {{ total_calories }} kcal</h5>
                 <br><br>
                 <h1>Добави продукт</h1>
                 <form method="post">
@@ -42,7 +42,7 @@
                             {% endfor %}
                         </tr>
                     {% endfor %}
-                    <br><br>
+                    <br>
                     <button type="submit"><h1><span>Добави</span></h1></button>
                 </form>
 
@@ -58,11 +58,11 @@
             </div>
             <button>
                 <h1>
-                    <a href="{% url 'shopping_list' recipe.dish.meal.day.id %}">Списък</a></h1>
+                    <a href="{% url 'shopping_list' recipe.dish.meal.day.id %}"><span>Списък</span></a></h1>
             </button>
             <button>
                 <h1>
-                    <a href="{% url 'recipe_list' recipe.dish.id %}">Назад към рецепти</a>
+                    <a href="{% url 'recipe_list' recipe.dish.id %}"><span>Назад към рецепти</span></a>
                 </h1>
             </button>
         </div>

@@ -285,7 +285,6 @@ class DeleteMealView(CustomLoginRequiredMixin, ErrorRedirectMixin, views.DeleteV
     def get_success_url(self):
         return reverse('menu', args=[self.object.day.id])
 
-
 class DeleteDishView(CustomLoginRequiredMixin, ErrorRedirectMixin, views.DeleteView):
     model = Dish
     template_name = 'dish_delete.html'

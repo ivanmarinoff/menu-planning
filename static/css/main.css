@@ -69,7 +69,8 @@ a {
 #index-headline .index-message {
     display: inline-block;
     z-index: 999;
-    margin: 150px auto;
+    margin: 0 auto;
+    /*margin: 30px auto;*/
     left: 0;
     top: 40%;
     text-align: center;
@@ -138,6 +139,19 @@ a {
     text-transform: uppercase;
     text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
     font-family: 'Helvetica', sans-serif;
+}
+
+.index-message h6 {
+    color: #ffffff;
+    font-size: 100%;
+
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: 8px;
+    word-spacing: normal;
+    text-transform: uppercase;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    font-family: 'Abril Fatface', cursive;
 }
 
 #catalogue>h1{
