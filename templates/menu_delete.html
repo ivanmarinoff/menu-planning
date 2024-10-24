@@ -1,10 +1,16 @@
-{#{% extends "navbar.html" %}#}
+{% extends "navbar.html" %}
 
-{% block content %}
-  <h2>Are you sure you want to delete {{ meal.name }}?</h2>
-  <form method="POST" action="{% url 'delete_meal' pk=meal.id %}">
-    {% csrf_token %}
-    <button type="submit" class="btn btn-danger">Yes</button>
-    <a href="{% url 'home' %}" class="btn btn-secondary">Cancel</a>
-  </form>
-{% endblock %}
+{% block header %}
+    <section id="index-headline">
+        <div class="index-message">
+            <div class="plant-card">
+                <h2>Are you sure you want to delete {{ meal.name }}?</h2>
+                <form method="POST" action="{% url 'delete_meal' pk=meal.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Yes</button>
+                    <a href="{% url 'home' %}" class="btn btn-secondary">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </section>
+{% endblock header %}
