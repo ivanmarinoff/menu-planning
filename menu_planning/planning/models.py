@@ -14,7 +14,7 @@ class Day(models.Model):
 
     @classmethod
     def populate_days(cls):
-        days_of_week = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+        days_of_week = ['Понеделник', 'Вторник', 'Сряда', 'Четвъртък', 'Петък', 'Събота', 'Неделя']
         for day_name in days_of_week:
             cls.objects.get_or_create(name=day_name)
 

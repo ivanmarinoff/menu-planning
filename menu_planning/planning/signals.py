@@ -16,6 +16,7 @@ def create_shopping_list(sender, instance, created, **kwargs):
                 unit=recipe_product.unit
             )
 
+
 @receiver(post_migrate)
 def populate_days_after_migration(sender, **kwargs):
     Day.populate_days()
